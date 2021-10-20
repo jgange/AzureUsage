@@ -62,7 +62,7 @@ $scriptblock = {
         ((Get-UsageAggregates @params).UsageAggregations | Select-Object -ExpandProperty Properties) | ForEach-Object {
         
             $ur = New-Object PSObject -Property ([ordered]@{
-                "Resource Id"          = (($_.InstanceData | ConvertFrom-Json).'Microsoft.Resources'.resourceUri)
+                "Resource Id"          = ((($_.InstanceData | ConvertFrom-Json).'Microsoft.Resources'.resourceUri)).ToLower()
                 "Meter Category"       = $_.MeterCategory
                 "Meter Name"           = $_.MeterName
                 "Meter SubCategory"    = $_.MeterSubCategory
@@ -71,6 +71,7 @@ $scriptblock = {
                 "Usage Start Time"     = $_.UsageStartTime
                 "Usage End Time"       = $_.UsageEndTime
                 "Duration"             = ($_.UsageEndTime - $_.UsageStartTime).hours
+                "SubscriptionId"       = ((($_.InstanceData | ConvertFrom-Json).'Microsoft.Resources'.resourceUri).split("/")[2]).ToLower()
             })
 
             [System.Threading.Monitor]::Enter($azureUsageRecords.syncroot)
@@ -89,10 +90,12 @@ Function getAzureResources()
     $azureSubscriptions = Get-AzSubscription
 
     $azureSubscriptions | ForEach-Object {
+        $azs = $_.SubscriptionId
         Write-Output "Setting subscription context to subscription $($_.Name) and retrieving all Azure resources"
         Set-AzContext -Subscription $_.SubscriptionId | Out-Null
         Get-AzResource | ForEach-Object {
             $resourceRecord = New-Object PSObject -Property ([ordered]@{
+                "SubscriptionId"        = $azs.ToLower()
                 "ResourceName"          = $_.ResourceName
                 "ResourceGroupName"     = $_.ResourceGroupName
                 "ResourceType"          = $_.ResourceType
@@ -107,12 +110,18 @@ Function getAzureResources()
     }
 }
 
-Function getResourceUsage($resourceId)
+Function getResourceUsage([string]$subscriptionId, [string]$resourceId)
 {
-    if ($recordList = $azureUsageRecords -match $resourceId)
+    # filter the usage records by subscription to reduce the # of comparisons necessary
+    $usageBySubscription = $azureUsageRecords.Where({ $_.SubscriptionId -eq $subscriptionId})
+
+    $usageBySubscription
+
+    if ($recordList = $usageBySubscription -match $resourceId)
     {
-        $recordList
+        $resourceUsageReport.Add($recordList)
     }
+
 }
 
 
@@ -127,6 +136,9 @@ if (!($azc.Context.Tenant))
 # Retrieve all the Azure resources
 Write-Host "Getting Azure resources by subscription"
 getAzureResources
+
+
+# Loop through subscriptions to get all the data
 
 Set-AzContext -Subscription "International Dev/Test"
 
@@ -158,4 +170,10 @@ $runspaces.Clear()
 $pool.Close()
 $pool.Dispose()
 
-$azureResources.ResourceId | ForEach-Object { getResourceUsage $_ }
+$subId = "e91b6d6a-70db-4d28-a270-df1027772394"
+$resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
+
+$azureResources.Count
+$resourcesBySubscription.Count
+
+$resourcesBySubscription.ResourceId | ForEach-Object { getResourceUsage $subId $_ }
