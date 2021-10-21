@@ -10,6 +10,9 @@ $azureSubscriptions  = @()
 $azureResources      = [System.Collections.ArrayList]@()
 $resourceUsageReport = [System.Collections.ArrayList]@()
 
+# Set max # of concurrent threads
+[int]$maxpoolsize = ([int]$env:NUMBER_OF_PROCESSORS + 1)
+
 
 # Storage for threaded usage data
 $dateQ              = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())
@@ -20,13 +23,6 @@ $startDate = [datetime]"09-01-2021"
 $endDate = [datetime]"10-01-2021"
 [int]$offset = 0
 [int]$numDays = ($endDate - $startDate).Days
-
-# set maX # of threads = processor cores and create the Runspace pool
-[int]$maxpoolsize = ([int]$env:NUMBER_OF_PROCESSORS + 1)
-$pool = [RunspaceFactory]::CreateRunspacePool(1, $maxpoolsize)
-$pool.ApartmentState = "MTA"
-$pool.Open()
-$runspaces = @()
 
 # Add the days to look up usage data
 0..($numDays-1) | ForEach-Object {
@@ -87,11 +83,18 @@ $scriptblock = {
 # Retrieves resources from all accessible subscriptions
 Function getAzureResources()
 {
-    $azureSubscriptions = Get-AzSubscription
+    $global:azureSubscriptions = Get-AzSubscription
 
-    $azureSubscriptions | ForEach-Object {
+    $snum = 0
+
+    $global:azureSubscriptions | ForEach-Object {
+
+        $pc = (($snum/$azureSubscriptions.Count)*100)
+
+        Write-Progress -Activity "Getting Azure resources for all subscriptions" -Status "Working on subscription: $($_.Name) - Percent complete $pc%" -PercentComplete $pc
+
         $azs = $_.SubscriptionId
-        Write-Output "Setting subscription context to subscription $($_.Name) and retrieving all Azure resources"
+        # Write-Output "Setting subscription context to subscription $($_.Name) and retrieving all Azure resources"
         Set-AzContext -Subscription $_.SubscriptionId | Out-Null
         Get-AzResource | ForEach-Object {
             $resourceRecord = New-Object PSObject -Property ([ordered]@{
@@ -107,6 +110,7 @@ Function getAzureResources()
                 })
          [void]$azureResources.Add($resourceRecord)
         }
+        $snum++
     }
 }
 
@@ -125,6 +129,11 @@ Function getResourceUsage([string]$subscriptionId, [string]$resourceId)
 }
 
 
+Function createUsageReport()
+{
+    # Stub
+}
+
 ### Main Program ###
 
 # Check if a connection to Azure exists
@@ -137,10 +146,31 @@ if (!($azc.Context.Tenant))
 Write-Host "Getting Azure resources by subscription"
 getAzureResources
 
+Write-Host
 
 # Loop through subscriptions to get all the data
 
-Set-AzContext -Subscription "International Dev/Test"
+$snum = 0
+
+$azureSubscriptions | ForEach-Object {
+
+# Add the days to look up usage data
+0..($numDays-1) | ForEach-Object {
+    $dateQ.Enqueue($startDate.AddDays($_))
+}
+
+# Create the Runspace pool and an empty array to store the runspaces
+$pool = [RunspaceFactory]::CreateRunspacePool(1, $maxpoolsize)
+$pool.ApartmentState = "MTA"
+$pool.Open()
+$runspaces = @()
+
+$null = (Set-AzContext -Subscription $_.Id)
+
+#Write-Host "Setting subscription to $($_.Name)"
+$pc = (($snum/$azureSubscriptions.Count)*100)
+
+Write-Progress -Activity "Getting Usage data for all subscriptions" -Status "Working on subscription: $($_.Name) - Percent complete $pc%" -PercentComplete $pc
 
 Write-Host "Getting usage data"
 # Spin up tasks to get the usage data
@@ -170,6 +200,11 @@ $runspaces.Clear()
 $pool.Close()
 $pool.Dispose()
 
+$snum++
+
+} # End subscription loop
+
+<#
 $subId = "e91b6d6a-70db-4d28-a270-df1027772394"
 $resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
 
@@ -181,4 +216,4 @@ $resourcesBySubscription.ResourceId | ForEach-Object {
     getResourceUsage $subId $_
 }
 
-$resourceUsageReport | Group-Object -Property "Resource Id",Duration
+#>
