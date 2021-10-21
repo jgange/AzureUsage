@@ -115,11 +115,11 @@ Function getResourceUsage([string]$subscriptionId, [string]$resourceId)
     # filter the usage records by subscription to reduce the # of comparisons necessary
     $usageBySubscription = $azureUsageRecords.Where({ $_.SubscriptionId -eq $subscriptionId})
 
-    $usageBySubscription
-
     if ($recordList = $usageBySubscription -match $resourceId)
     {
-        $resourceUsageReport.Add($recordList)
+        $recordList | ForEach-Object {
+        [void]$resourceUsageReport.Add($_)
+        }
     }
 
 }
@@ -176,4 +176,9 @@ $resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
 $azureResources.Count
 $resourcesBySubscription.Count
 
-$resourcesBySubscription.ResourceId | ForEach-Object { getResourceUsage $subId $_ }
+$resourcesBySubscription.ResourceId | ForEach-Object { 
+    Write-Host "Checking resource $_"
+    getResourceUsage $subId $_
+}
+
+$resourceUsageReport | Group-Object -Property "Resource Id",Duration
