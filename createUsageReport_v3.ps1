@@ -38,7 +38,7 @@ $scriptblock = {
 
     [datetime]$sd = $dateQ.Dequeue()
     $ed = $sd.AddDays(1)
-    Write-Output "Fetching usage records for $sd to $ed"
+    # Write-Output "Fetching usage records for $sd to $ed"
 
     do {    
         ## Define all parameters to pass to Get-UsageAggregates
@@ -89,7 +89,7 @@ Function getAzureResources()
 
     $global:azureSubscriptions | ForEach-Object {
 
-        $pc = (($snum/$azureSubscriptions.Count)*100)
+        $pc = [math]::Round(($snum/$azureSubscriptions.Count)*100)
 
         Write-Progress -Activity "Getting Azure resources for all subscriptions" -Status "Working on subscription: $($_.Name) - Percent complete $pc%" -PercentComplete $pc
 
@@ -117,13 +117,21 @@ Function getAzureResources()
 Function getResourceUsage([string]$subscriptionId, [string]$resourceId)
 {
     # filter the usage records by subscription to reduce the # of comparisons necessary
+
+    $rname = ($azureResources -match $resourceId).ResourceName 
+
     $usageBySubscription = $azureUsageRecords.Where({ $_.SubscriptionId -eq $subscriptionId})
 
-    if ($recordList = $usageBySubscription -match $resourceId)
+    if ($recordList = ($usageBySubscription -match $resourceId))
     {
+        $usage = (($recordList | Measure-Object -Property Quantity -Sum).Sum)
+        Write-Host "Resource = $rname  ---  Usage = $usage $($recordList[-1].Unit) for meter category $($recordList[-1]."Meter Category")"
+        
+        <#
         $recordList | ForEach-Object {
         [void]$resourceUsageReport.Add($_)
         }
+        #>
     }
 
 }
@@ -146,8 +154,6 @@ if (!($azc.Context.Tenant))
 Write-Host "Getting Azure resources by subscription"
 getAzureResources
 
-Write-Host
-
 # Loop through subscriptions to get all the data
 
 $snum = 0
@@ -168,11 +174,10 @@ $runspaces = @()
 $null = (Set-AzContext -Subscription $_.Id)
 
 #Write-Host "Setting subscription to $($_.Name)"
-$pc = (($snum/$azureSubscriptions.Count)*100)
+$pc = [math]::Round(($snum/$azureSubscriptions.Count)*100)
 
 Write-Progress -Activity "Getting Usage data for all subscriptions" -Status "Working on subscription: $($_.Name) - Percent complete $pc%" -PercentComplete $pc
 
-Write-Host "Getting usage data"
 # Spin up tasks to get the usage data
 1..$numDays | ForEach-Object {
    $runspace = [PowerShell]::Create()
@@ -204,16 +209,23 @@ $snum++
 
 } # End subscription loop
 
-<#
-$subId = "e91b6d6a-70db-4d28-a270-df1027772394"
-$resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
+Write-Progress -Completed -Activity "Getting Usage data for all subscriptions"
 
-$azureResources.Count
-$resourcesBySubscription.Count
+Write-Host "Building final resource usage report."
 
-$resourcesBySubscription.ResourceId | ForEach-Object { 
-    Write-Host "Checking resource $_"
-    getResourceUsage $subId $_
+$azureSubscriptions | ForEach-Object {
+
+    $subId = $_.Id
+    $subName = $_.Name
+
+    Write-Host "Looking up subscription usage data for $subName"
+
+    $resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
+
+    Write-Host "Returned $($resourcesBySubscription.Count) resources in $subName subscription."
+
+    $resourcesBySubscription.ResourceId | ForEach-Object { 
+        getResourceUsage $subId $_
+    }
+
 }
-
-#>
