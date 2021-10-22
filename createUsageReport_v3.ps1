@@ -6,9 +6,10 @@
 # Variable definitions
 
 # Storage for Azure resources and subscriptions
-$azureSubscriptions  = @()
-$azureResources      = [System.Collections.ArrayList]@()
-$resourceUsageReport = [System.Collections.ArrayList]@()
+$azureSubscriptions  = @()                                                                                        # Stores available subscriptions
+$azureResources      = [System.Collections.ArrayList]@()                                                          # List of all accessible Azure resources across all subscriptions
+$resourceUsageReport = [System.Collections.ArrayList]::Synchronized((New-Object System.Collections.ArrayList))    # Thread safe array to hold finally aggregated report data
+$resourceQ           = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())                # queue to hold collection of resources per subscriptions
 
 # Set max # of concurrent threads
 [int]$maxpoolsize = ([int]$env:NUMBER_OF_PROCESSORS + 1)
@@ -118,15 +119,16 @@ Function getResourceUsage([string]$subscriptionId, [string]$resourceId)
 {
     # filter the usage records by subscription to reduce the # of comparisons necessary
 
-    $rname = ($azureResources -match $resourceId).ResourceName 
+    $resource = $azureResources -match $resourceId
 
     $usageBySubscription = $azureUsageRecords.Where({ $_.SubscriptionId -eq $subscriptionId})
 
     if ($recordList = ($usageBySubscription -match $resourceId))
     {
         $usage = (($recordList | Measure-Object -Property Quantity -Sum).Sum)
-        Write-Host "Resource = $rname  ---  Usage = $usage $($recordList[-1].Unit) for meter category $($recordList[-1]."Meter Category")"
-        
+        Write-Host "Name: $($resource.ResourceName)  ---  GroupName: $($resource.ResourceGroupName)  ---  Type: $($resource.ResourceType)  ---  Location: $($resource.Location)"
+        Write-Host "Usage = $usage $($recordList[-1].Unit) --- Meter category: $($recordList[-1]."Meter Category") --- Meter SubCategory: $($recordList[-1]."Meter SubCategory") --- Meter Name: $($recordList[-1]."Meter Name")"
+        Write-Host
         <#
         $recordList | ForEach-Object {
         [void]$resourceUsageReport.Add($_)
@@ -223,6 +225,7 @@ $azureSubscriptions | ForEach-Object {
     $resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
 
     Write-Host "Returned $($resourcesBySubscription.Count) resources in $subName subscription."
+    Write-Host
 
     $resourcesBySubscription.ResourceId | ForEach-Object { 
         getResourceUsage $subId $_
