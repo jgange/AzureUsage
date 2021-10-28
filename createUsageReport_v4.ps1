@@ -9,7 +9,7 @@
 $azureSubscriptions  = @()                                                                                        # Stores available subscriptions
 $azureResources      = [System.Collections.ArrayList]@()                                                          # List of all accessible Azure resources across all subscriptions
 $resourceUsageReport = [System.Collections.ArrayList]::Synchronized((New-Object System.Collections.ArrayList))    # Thread safe array to hold finally aggregated report data
-$resourceQ           = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())                # queue to hold collection of resources per subscriptions
+$subQ                = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())                # queue to hold collection of subscriptions               
 
 # Set max # of concurrent threads
 $offset = 3
@@ -240,26 +240,130 @@ $snum++
 
 } # End subscription loop
 
+
+# Script block to associate the resource with the usage records
+$scriptblock_report = {
+
+    param(
+        $subscriptionId,
+        $azureResources,
+        $azureUsageRecords,
+        $resourceUsageReport,
+        $subQ
+    )
+
+    While ($subQ.Count() -gt 0) {
+
+        $subItem = $subQ.Dequeue()
+
+        $subscriptionId = $subItem.Id
+        $subName = $subItem.Name
+
+        $resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subscriptionId})
+ 
+        $resourcesBySubscription.ResourceId | ForEach-Object { 
+ 
+            $resource = $azureResources -match $resourceId
+
+            $usageBySubscription = $azureUsageRecords.Where({ $_.SubscriptionId -eq $subscriptionId})
+
+            if ($recordList = ($usageBySubscription -match $resourceId))
+            {
+                $usage = (($recordList | Measure-Object -Property Quantity -Sum).Sum)
+
+                $entry = New-Object PSObject -Property ([ordered]@{
+                    "ResourceName"          = $resource.ResourceName
+                    "ResourceGroupName"     = $resource.ResourceGroupName
+                    "ResourceType"          = $resource.ResourceType
+                    "ResourceId"            = $resource.ResourceId
+                    "Location"              = $resource.Location
+                    "SKUName"               = $resource.Sku.Name
+                    "ParentResource"        = $resource.ParentResource
+                    "Status"                = $resource.Properties.provisioningstate
+                    "Usage"                 = $usage
+                    "Unit"                  = $recordList[-1].Unit
+                    "Meter Category"        = $recordList[-1]."Meter Category"
+                    "Meter SubCategory"     = $recordList[-1]."Meter SubCategory"
+                    "Meter Name"            = $recordList[-1]."Meter Name"
+                    })
+                [System.Threading.Monitor]::Enter($resourceUsageReport.syncroot)
+                [void]$resourceUsageReport.Add($entry)
+                [System.Threading.Monitor]::Exit($resourceUsageReport.syncroot)
+            }
+            else
+            {
+                $entry = New-Object PSObject -Property ([ordered]@{
+                    "ResourceName"          = $resource.ResourceName
+                    "ResourceGroupName"     = $resource.ResourceGroupName
+                    "ResourceType"          = $resource.ResourceType
+                    "ResourceId"            = $resource.ResourceId
+                    "Location"              = $resource.Location
+                    "SKUName"               = $resource.Sku.Name
+                    "ParentResource"        = $resource.ParentResource
+                    "Status"                = $resource.Properties.provisioningstate
+                    "Usage"                 = 0
+                    "Unit"                  = "n/a"
+                    "Meter Category"        = "n/a"
+                    "Meter SubCategory"     = "n/a"
+                    "Meter Name"            = "n/a"
+                    })
+                [System.Threading.Monitor]::Enter($resourceUsageReport.syncroot)
+                [void]$resourceUsageReport.Add($entry)
+                [System.Threading.Monitor]::Exit($resourceUsageReport.syncroot)
+             }
+    
+        }
+
+    } # End sub while loop
+
+} # End Script Block
+
 Write-Progress -Completed -Activity "Getting Usage data for all subscriptions"
 
 Write-Host "Building final resource usage report."
 
-$azureSubscriptions | ForEach-Object {
+$snum = 0
 
-    $subId = $_.Id
-    $subName = $_.Name
+$pool = [RunspaceFactory]::CreateRunspacePool(1, $maxpoolsize)
+$pool.ApartmentState = "MTA"
+$pool.Open()
+$runspaces = @()
 
-    Write-Host "Looking up subscription usage data for $subName"
+# populate subQ with subscription entries
+$subQ = $azureSubscriptions
 
-    $resourcesBySubscription = $azureResources.Where({$_.SubscriptionId -eq $subId})
+$subQ
 
-    Write-Host "Returned $($resourcesBySubscription.Count) resources in $subName subscription."
-    Write-Host
-
-    $resourcesBySubscription.ResourceId | ForEach-Object { 
-        getResourceUsage $subId $_
+# Spin up tasks to get the usage data
+    1..$azureSubscriptions.Count | ForEach-Object {
+       $runspace = [PowerShell]::Create()
+       $null = $runspace.AddScript($scriptblock_report)
+       $null = $runspace.AddArgument($subscriptionId)
+       $null = $runspace.AddArgument($azureResources)
+       $null = $runspace.AddArgument($azureUsageRecords)
+       $null = $runspace.AddArgument($resourceUsageReport)
+       $null = $runspace.AddArgument($subQ)
+       $runspace.RunspacePool = $pool
+       $runspaces += [PSCustomObject]@{ Pipe = $runspace; Status = $runspace.BeginInvoke() }
     }
 
+# Check tasks status until they are complete, then close them
+    while ($runspaces.Status -ne $null)
+    {
+       Write-Host "Subscriptions remaining: $($subQ.Count)"
+       $completed = $runspaces | Where-Object { $_.Status.IsCompleted -eq $true }
+       foreach ($runspace in $completed)
+       {
+            $runspace.Pipe.EndInvoke($runspace.Status)
+            $runspace.Status = $null
+        }
 }
 
+
+# Clean up runspaces and free the memory for the pool
+$runspaces.Clear()
+$pool.Close()
+$pool.Dispose()
+
+# Output report
 $resourceUsageReport
