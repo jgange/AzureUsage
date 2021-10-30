@@ -1,12 +1,18 @@
 ﻿param (
     [string]$startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),  # defaults to 30 days prior to last collection date
     [string]$endDate   = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),   # last current collection date
-    [boolean]$includeDetail = $false                                      # only shows subscription totals if false
+    [ValidateSet($true, $false)]
+    [boolean]
+    $includeDetail = $false                                      # only shows subscription totals if false
 )
 
 $azureCostData = [System.Collections.ArrayList]@()
 $subscriptionTotalCost = @{}
 $outputFile = "C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureCostReport.txt"
+
+Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail"
+
+### Main Program ###
 
 $azSubscriptions = Get-AzSubscription
 
