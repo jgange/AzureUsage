@@ -81,4 +81,4 @@ $azSubscriptions | ForEach-Object{
 Stop-Transcript
 
 # strip the transcript info out of the file
-(Get-Content $outputFile | Select-Object -Skip 19) | Set-Content $outputFile
+(Get-Content $outputFile | Select-Object -Skip 19) | Select-Object -SkipLast 4 |Set-Content $outputFile

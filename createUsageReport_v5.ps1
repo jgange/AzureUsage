@@ -241,7 +241,7 @@ Write-Progress -Completed -Activity "Getting Usage data for all subscriptions"
 
 Start-Transcript -Path $outputFile
 
-Write-Host "Date Range: $startDate - $endDate`n"
+Write-Host "`nDate Range: $startDate - $endDate`n"
 
 $azureSubscriptions | ForEach-Object {
 
@@ -288,8 +288,15 @@ $azureSubscriptions | ForEach-Object {
         if (!($resource))
         {
             $resourceName =      "Not Found"
-            $resourceType =      "N/a"
-            $resourceLocation =  ($_.Group."Instance Location")[0]
+            $resourceType =      "N/A"
+            if ($_.Group."Instance Location") 
+            {
+                $resourceLocation =  ($_.Group."Instance Location")[0]
+            }
+            else
+            {
+                $resourceLocation = "N/A"
+            } 
         }
         else
         {
@@ -316,4 +323,4 @@ $azureSubscriptions | ForEach-Object {
 Stop-Transcript
 
 # strip the transcript info out of the file
-(Get-Content $outputFile | Select-Object -Skip 19) | Set-Content $outputFile
+(Get-Content $outputFile | Select-Object -Skip 19) | Select-Object -SkipLast 4 |Set-Content $outputFile
