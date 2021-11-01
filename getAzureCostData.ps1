@@ -15,11 +15,17 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
+$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\Reports\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
 
 Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail"
 
 ### Main Program ###
+
+# Check if a connection to Azure exists
+if (!($azc.Context.Tenant))
+{
+    $azc = Connect-AzAccount
+}
 
 $azSubscriptions = Get-AzSubscription
 

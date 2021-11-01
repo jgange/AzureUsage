@@ -18,7 +18,7 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureUsageReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
+$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\Reports\AzureUsageReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
 
 Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail"
 
@@ -32,6 +32,7 @@ $azureSubscriptions  = @()                                                      
 $azureResources      = [System.Collections.ArrayList]@()                                                          # List of all accessible Azure resources across all subscriptions
 $resourceUsageReport = [System.Collections.ArrayList]::Synchronized((New-Object System.Collections.ArrayList))    # Thread safe array to hold finally aggregated report data
 $resourceQ           = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())                # queue to hold collection of resources per subscriptions
+$azureUsageData      = [System.Collections.ArrayList]@()                                                          # Holds set of report data
 
 # Set max # of concurrent threads
 $offset = 3
@@ -42,15 +43,15 @@ $offset = 3
 $dateQ              = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())
 $azureUsageRecords  = [System.Collections.ArrayList]::Synchronized((New-Object System.Collections.ArrayList))
 
-# define information for usage data based on date range
-$startDate = [datetime]$startDate
-$endDate = [datetime]$endDate
+# define information for usage data based on date range - need to convert the string value to an actual datetime to use the date arithmetic functions
+$sd = [datetime]::ParseExact($startDate,'MM-dd-yyyy',$null)
+$ed = [datetime]::ParseExact($endDate,'MM-dd-yyyy',$null)
 [int]$offset = 0
-[int]$numDays = ($endDate - $startDate).Days
+[int]$numDays = ($ed - $sd).Days
 
 # Add the days to look up usage data
 0..($numDays-1) | ForEach-Object {
-    $dateQ.Enqueue($startDate.AddDays($_))
+    $dateQ.Enqueue($sd.AddDays($_))
 }
 
 # define script block to get Azure usage information
@@ -210,7 +211,7 @@ $azureSubscriptions | ForEach-Object {
 
 # Add the days to look up usage data
 0..($numDays-1) | ForEach-Object {
-    $dateQ.Enqueue($startDate.AddDays($_))
+    $dateQ.Enqueue($sd.AddDays($_))
 }
 
 # Create the Runspace pool and an empty array to store the runspaces
@@ -261,7 +262,7 @@ Write-Progress -Completed -Activity "Getting Usage data for all subscriptions"
 
 Start-Transcript -Path $outputFile
 
-Write-Host "`nDate Range: $startDate - $endDate`n"
+Write-Host "`nDate Range: $startDate to $endDate`n"
 
 $azureSubscriptions | ForEach-Object {
 
@@ -279,20 +280,9 @@ $azureSubscriptions | ForEach-Object {
      
     $resourceGrouping | ForEach-Object {
 
-        $ridm = $_.Group."Resource Id" | Get-Unique                                    # Get list of resource Ids after grouping by resource Id
- 
-        $totalUsage = ($_.Group | Measure-Object -Property Quantity -Sum).Sum
+        $totalUsage = ($_.Group | Measure-Object -Property Quantity -Sum).Sum                  # Total usage value for the subscription
         
-        $mc = $_.Group."Meter Category" | Get-Unique
-        
-        $un = $_.Group.Unit | Get-Unique
-        if ($un.GetType().Name -ne 'String') {
-            $unit =  ([String]::Join("-",($un | Sort-Object | Get-Unique))).Split("-")[0]
-        }
-        else { $unit =  $un }
-
-
-
+        $mc = $_.Group."Meter Category" | Get-Unique                                           # get meter category and handle null values and multiple values
         if( ($mc.GetType()).Name -ne 'String') 
         { 
             $meterCategory = [String]::Join(" ",($mc | Sort-Object | Get-Unique))
@@ -301,10 +291,18 @@ $azureSubscriptions | ForEach-Object {
         {
             $meterCategory = $mc
         }
-
-        $resource = $azureResources -match $ridm
         
-        if (!($resource))
+        $un = $_.Group.Unit | Get-Unique                                                       # get the usage unit information and handle null value and multiple values
+        if ($un.GetType().Name -ne 'String') {
+            $unit =  ([String]::Join("-",($un | Sort-Object | Get-Unique))).Split("-")[0]
+        }
+        else { $unit =  $un }
+
+        $ridm = $_.Group."Resource Id" | Get-Unique                                            # Get list of resource Ids after grouping by resource Id
+
+        $resource = $azureResources -match $ridm                                               # match up the resource Id from the usage data to an actual Azure resource to get the rest of the information
+        
+        if (!($resource))                                                                      # handle the case where the resource no longer exists in azure
         {
             $resourceName =      "Not Found"
             $resourceType =      "N/A"
@@ -322,7 +320,6 @@ $azureSubscriptions | ForEach-Object {
             if ($resource.ResourceName.GetType().Name -ne 'String')
             {
                 $resourceName = ($resource.ResourceName)[0]
-                #$resourceName = [String]::Join(" ",($resource.ResourceName | Sort-Object | Get-Unique))
             }
             else
             {
@@ -332,10 +329,26 @@ $azureSubscriptions | ForEach-Object {
             }
         }
 
-        '{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f $resourceName, $totalUsage, $unit, $resourceLocation, $resourceType, $meterCategory
+        # construct an object to hold the data record so we can sort it by the object properties
 
+         $item = New-Object PSObject -Property ([ordered]@{
+              "Resource Name"     = $resourceName
+              "Total Usage"       = $totalUsage
+              "Unit"              = $unit
+              "Location"          = $resourceLocation
+              "Resource Type"     = $resourceType
+              "Meter Category"    = $meterCategory
+           })
+          [void]$azureUsageData.Add($item)
 
+    } # End ForEach loop to calculate report values
+
+    $subUsage = $azureUsageData | Sort-Object -Property "Total Usage" -Descending
+    $subUsage | ForEach-Object {
+        '{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f $_."Resource Name", $_."Total Usage", $_.Unit, $_.Location, $_."Resource Type", $_."Meter Category"
     }
+    #'{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f $resourceName, $totalUsage, $unit, $resourceLocation, $resourceType, $meterCategory
+    $azureUsageData.Clear()
 
 }
 
