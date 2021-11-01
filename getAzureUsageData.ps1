@@ -1,9 +1,14 @@
 ﻿param (
-    [string]$startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),  # defaults to 30 days prior to last collection date
-    [string]$endDate   = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),   # last current collection date
+    [string]
+    $startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),  # defaults to 30 days prior to last collection date
+    [string]
+    $endDate   = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),   # last current collection date
     [ValidateSet("True", "False")]
     [string]
-    $includeDetail = "True"                                           # only shows subscription totals if false - add _Summary if false, or _Detail if true
+    $includeDetail = "True",                                              # only shows subscription totals if false - add _Summary if false, or _Detail if true
+    [ValidateSet("True", "False")]
+    [string]
+    $showIdleAssets = "False"                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true   
 )
 
 # Program documentation
@@ -33,6 +38,8 @@ $azureResources      = [System.Collections.ArrayList]@()                        
 $resourceUsageReport = [System.Collections.ArrayList]::Synchronized((New-Object System.Collections.ArrayList))    # Thread safe array to hold finally aggregated report data
 $resourceQ           = [System.Collections.Queue]::Synchronized([System.Collections.Queue]::new())                # queue to hold collection of resources per subscriptions
 $azureUsageData      = [System.Collections.ArrayList]@()                                                          # Holds set of report data
+$idleResources       = [System.Collections.ArrayList]@()                                                          # Holds set of Azure resources with no usage data for the time frame specified
+     
 
 # Set max # of concurrent threads
 $offset = 3
@@ -191,6 +198,25 @@ Function getResourceUsage([string]$subscriptionId, [string]$resourceId)
 
 }
 
+Function getIdleResources()
+{
+    $azu          = ($azureUsageRecords."Resource Id" | Sort-Object | Get-Unique)              # Get list of resource Ids from usage data; list is sorted to properly remove duplicates.
+    $idleList     = $azureResources.ResourceId | Where-Object { $_ -notin $azu }               # Generate list of resource Ids which are not in the usage list.
+    $outputBlock  = [System.Collections.ArrayList]@()                
+
+    $outputBlock.Add("Resources in Azure with no usage data during the selected period`n")
+    $outputBlock.Add("Date range selected: $startDate to $endDate`n")
+    
+    # $header = "'{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f"
+
+    # Iterate through the list of resource Ids and get the rest of the resource information
+
+    $idleList | ForEach-Object {
+        $resource = ($azureResources.ResourceId -match $_)
+        '{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f $resource.ResourceName, $resource.ResourceGroupName, $resource.ResourceType, $resource.Location, $resource.ParentResource, $resource.Status
+    }
+
+}
 
 ### Main Program ###
 
@@ -356,3 +382,4 @@ Stop-Transcript
 
 # strip the transcript info out of the file
 (Get-Content $outputFile | Select-Object -Skip 19) | Select-Object -SkipLast 4 |Set-Content $outputFile
+
