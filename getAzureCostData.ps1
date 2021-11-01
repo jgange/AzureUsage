@@ -1,14 +1,21 @@
 ﻿param (
     [string]$startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),  # defaults to 30 days prior to last collection date
     [string]$endDate   = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),   # last current collection date
-    [ValidateSet($true, $false)]
-    [boolean]
-    $includeDetail = $false                                      # only shows subscription totals if false
+    [ValidateSet("True", "False")]
+    [string]
+    $includeDetail = "True"                                           # only shows subscription totals if false - add _Summary if false, or _Detail if true
 )
 
 $azureCostData = [System.Collections.ArrayList]@()
 $subscriptionTotalCost = @{}
-$outputFile = "C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureCostReport.txt"
+$reportType = "_Summary.txt"
+
+if ($includeDetail -eq "$True")
+{
+    $reportType = "_Detail.txt"
+}
+
+$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
 
 Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail"
 
