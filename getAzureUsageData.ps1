@@ -18,7 +18,7 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
+$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureUsageReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
 
 Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail"
 
@@ -26,8 +26,6 @@ if ($includeDetail)
 {
     $reportType = "_Detail.txt"
 }
-
-$outputFile = "C:\Users\jgange\Projects\PowerShell\AzureUsage\AzureUsageReport" + $reportType
 
 # Storage for Azure resources and subscriptions
 $azureSubscriptions  = @()                                                                                        # Stores available subscriptions
@@ -45,8 +43,8 @@ $dateQ              = [System.Collections.Queue]::Synchronized([System.Collectio
 $azureUsageRecords  = [System.Collections.ArrayList]::Synchronized((New-Object System.Collections.ArrayList))
 
 # define information for usage data based on date range
-#$startDate = [datetime]"09-01-2021"
-#$endDate = [datetime]"09-04-2021"
+$startDate = [datetime]$startDate
+$endDate = [datetime]$endDate
 [int]$offset = 0
 [int]$numDays = ($endDate - $startDate).Days
 
