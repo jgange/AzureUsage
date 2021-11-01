@@ -279,8 +279,7 @@ $azureSubscriptions | ForEach-Object {
      
     $resourceGrouping | ForEach-Object {
 
-        $ridm = $_.Group."Resource Id" | Get-Unique
-        #$ridm
+        $ridm = $_.Group."Resource Id" | Get-Unique                                    # Get list of resource Ids after grouping by resource Id
  
         $totalUsage = ($_.Group | Measure-Object -Property Quantity -Sum).Sum
         
