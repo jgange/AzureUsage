@@ -72,7 +72,7 @@ $azSubscriptions | ForEach-Object {
         $l = $azgitem.Group.InstanceLocation | Get-Unique
         if( ($l.GetType()).Name -ne 'String') 
         { 
-            $location = [String]::Join(" ",($l | Sort-Object | Get-Unique))
+            $location = [String]::Join(" ",($l | Sort-Object | Get-Unique))[0]
         }
         else
         {
@@ -82,7 +82,7 @@ $azSubscriptions | ForEach-Object {
         $t = $azgitem.Group.ConsumedService | Get-Unique
         if( ($t.GetType()).Name -ne 'String') 
         { 
-            $type = [String]::Join(" ",($t | Sort-Object | Get-Unique))
+            $type = [String]::Join(" ",($t | Sort-Object | Get-Unique))[0]
         }
         else
         {
