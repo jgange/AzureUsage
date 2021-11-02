@@ -114,7 +114,7 @@ are-tariffs                                                                 5,76
 mesca-sql01                                                                 2,976.77     1 GB/Month      eastus2         Microsoft.DBforPostgreSQL/servers                  Azure Database for PostgreSQL
 dom-dev-psql-01                                                             2,976.77     1 GB/Month      eastus2         Microsoft.DBforPostgreSQL/servers                  Azure Database for PostgreSQL
 ascent-domestic-dev/ascent-dom-pool                                         2,920.26     1 GB/Month      eastus2         Microsoft.Sql/servers/elasticpools                 SQL Database
-ascent-mesca                                                                2,757.09     1 GB/Month      eastus2         Microsoft.Compute/disks                            Azure Cosmos DB
+ascent-mesca                                                                2,757.09     1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Azure Cosmos DB
 aks-appagentpool-24212811-vmss                                              2,162.38     1 GB            eastus2         Microsoft.Compute/virtualMachineScaleSets          Bandwidth Virtual Machines
 dom-dev-pip-pre                                                             1,440.00     1 Hour          eastus2         Microsoft.Network/publicIPPrefixes                 Virtual Network
 kubernetes                                                                  826.22       1 GB            eastus2         Microsoft.Network/loadBalancers                    Load Balancer
@@ -135,13 +135,13 @@ domesticdevstorage                                                          8.23
 Not Found                                                                   4.06         1 GB/Month                      N/A                                                SQL Database
 AlsFuncAppRateEdi                                                           1.94         1 Hour          eastus2         Microsoft.Web/sites                                Azure App Service
 AlsFuncAppRateEdiVS                                                         1.93         1 Hour          eastus2         Microsoft.Web/sites                                Azure App Service
-ascent-domestic-dev                                                         0.97         1/Month         eastus2         Microsoft.OperationalInsights/workspaces           Advanced Data Security
 dom-dev-sql-01                                                              0.97         1/Month         eastus2         Microsoft.Storage/storageAccounts                  Advanced Data Security
+ascent-domestic-dev                                                         0.97         1/Month         eastus2         Microsoft.OperationalInsights/workspaces           Advanced Data Security
 domestic-dev-filesync                                                       0.97         1/Month         eastus2         Microsoft.StorageSync/storageSyncServices          Storage
 mongodb-vm_OsDisk_1_f8a0961948934c699170de006607153b                        0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 mongo-vm-preconf_OsDisk_1_9a9de00bcac64b69809f1be41206aac6                  0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 Not Found                                                                   0.70         1 Hour                          N/A                                                Azure App Service
-dom-qa-sql-01                                                               0.65         1/Month         eastus2         Microsoft.Storage/storageAccounts                  Advanced Data Security
+dom-qa-sql-01                                                               0.65         1/Month                         N/A                                                Advanced Data Security
 mescadiag                                                                   0.49         1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Storage
 sqlvacq25aywl3hnjc                                                          0.47         1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Storage
 storageaccountdomes8779                                                     0.47         1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Storage
@@ -153,8 +153,8 @@ storageaccountdomes893a                                                     0.45
 sqlvaj5e5pdezdyxiy                                                          0.30         1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Storage
 Alstest1                                                                    0.10         1 GB            eastus2         microsoft.insights/components                      Log Analytics
 dom-dev-kv                                                                  0.00         10K             eastus2         Microsoft.KeyVault/vaults                          Key Vault
-AlsTestEdiSB                                                                0.00         1M              eastus2         Microsoft.ServiceBus/namespaces                    Service Bus
 domesticedi-dev                                                             0.00         1M              eastus2         Microsoft.ServiceBus/namespaces                    Service Bus
+AlsTestEdiSB                                                                0.00         1M              eastus2         Microsoft.ServiceBus/namespaces                    Service Bus
 RateEdi                                                                     0.00         1 GB            eastus          microsoft.insights/components                      Log Analytics
 
 
@@ -185,50 +185,50 @@ pkp-dev-dba-sql-01/PEAK_DD                                                  1,47
 Not Found                                                                   1,469.00     1/Hour                          N/A                                                Security Center
 DefaultWorkspace-aea4d832-1305-4376-8dfe-34813a088f63-EUS                   1,443.35     1 GB            eastus          Microsoft.OperationalInsights/workspaces           Insight and Analytics Log Analytics Security Center
 pkp-ops-buildagents-vmss                                                    1,442.37     1 GB            eastus2         Microsoft.Compute/virtualMachineScaleSets          Bandwidth Virtual Machines
-peak-conn-sql01                                                             1,440.35     1 GB            eastus2         Microsoft.Sql/servers/databases                    Bandwidth Virtual Machines Virtual Machines Licenses
-peak-dev-postgres                                                           1,036.84     1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Azure Database for PostgreSQL
-aks-appagentpool-22524280-2                                                 740.07       1 GB            eastus2         Microsoft.ContainerRegistry/registries             Bandwidth Virtual Machines Virtual Network
-aks-appagentpool-22524280-1                                                 731.94       1 GB            eastus2         Microsoft.Compute/disks                            Bandwidth Virtual Machines Virtual Network
-pkp-dev-pcm-03                                                              724.95       1 GB            southcentralus  Microsoft.Storage/storageAccounts                  Bandwidth Virtual Machines
-aks-appagentpool-22524280-0                                                 724.91       1 GB            eastus2         Microsoft.Storage/storageAccounts                  Bandwidth Virtual Machines Virtual Network
+peak-conn-sql01                                                             1,440.35     1 GB            eastus2         Microsoft.ContainerRegistry/registries             Bandwidth Virtual Machines Virtual Machines Licenses
+peak-dev-postgres                                                           1,036.84     1 GB/Month                      N/A                                                Azure Database for PostgreSQL
+aks-appagentpool-22524280-2                                                 740.07       1 GB            eastus2         Microsoft.Storage/storageAccounts                  Bandwidth Virtual Machines Virtual Network
+aks-appagentpool-22524280-1                                                 731.94       1 GB            eastus2         Microsoft.Network/publicIPAddresses                Bandwidth Virtual Machines Virtual Network
+pkp-dev-pcm-03                                                              724.95       1 GB            eastus2         Microsoft.Search/searchServices                    Bandwidth Virtual Machines
+aks-appagentpool-22524280-0                                                 724.91       1 GB            eastus2         Microsoft.OperationalInsights/workspaces           Bandwidth Virtual Machines Virtual Network
 Not Found                                                                   724.00       1/Hour                          N/A                                                Service Bus
-sonarqube                                                                   722.25       1 GB            eastus2         Microsoft.Logic/workflows                          Bandwidth Virtual Machines
-jumpbox                                                                     722.09       1 GB            eastus2         Microsoft.Storage/storageAccounts                  Bandwidth Virtual Machines
-peak-conn-app01                                                             720.11       1 GB            eastus2         Microsoft.Sql/servers/databases                    Bandwidth Virtual Machines
-pkp-ops-jumpbox-pip                                                         720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-publicip-fortiweb                                                           720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-a86ec53714ce311ea860b5e791a5e2dd                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-CarrierPortalExtract20200412124142Plan                                      720.00       1 Hour          southcentralus  Microsoft.Web/serverFarms                          Azure App Service
-jumpbox_adjoin_test_ip                                                      720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-peak-conn-app01-ip                                                          720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-a9d299d1bb22c11e9aac2de5378ae302                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-af0d47cb595ec11eaa8d5c69d7758580                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-a7072b8b68eff40ecad78025059f12a2                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-pkp-ops-graylog-lb-pip                                                      720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-ada448089725911eaac45663a082e88a                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-aed662fca1d7d43a7af0b0bb14f06edb                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-fwdevtest-Nic0                                                              720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-peaksearch                                                                  720.00       1 Hour          eastus2         Microsoft.Search/searchServices                    Azure Cognitive Search
-peak-conn-sql01-ip                                                          720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-pkp_cluster_to_apxapp                                                       720.00       1 Hour          eastus2         Microsoft.Network/privateEndpoints                 Virtual Network
-pkp-search-qa                                                               720.00       1 Hour          eastus2         Microsoft.Search/searchServices                    Azure Cognitive Search
-pkpops_apxapp                                                               720.00       1 Hour          eastus2         Microsoft.Network/privateEndpoints                 Virtual Network
-pkp-app-pip                                                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-aefe2b6bd95ec11eaa8d5c69d7758580                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-a9d459d87b22c11e9aac2de5378ae302                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-sonarqube-apache-test-ip                                                    720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-a1c4879bdea0811e9aa42f6934205efc                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-a789bbee0a4d54888a8388e193eb0aa5                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+sonarqube                                                                   722.25       1 GB            eastus2         Microsoft.Network/publicIPAddresses                Bandwidth Virtual Machines
+jumpbox                                                                     722.09       1 GB            eastus2         Microsoft.Compute/virtualMachineScaleSets          Bandwidth Virtual Machines
+peak-conn-app01                                                             720.11       1 GB            eastus2         Microsoft.Compute/disks                            Bandwidth Virtual Machines
 kubernetes-a21772e81ef7711e9aa42f6934205efc                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp-ops-jumpbox-pip                                                         720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-a7072b8b68eff40ecad78025059f12a2                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp-search-qa                                                               720.00       1 Hour          eastus2         Microsoft.Search/searchServices                    Azure Cognitive Search
+pkp-app-pip                                                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+jumpbox_adjoin_test_ip                                                      720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-a1c4879bdea0811e9aa42f6934205efc                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+sonarqube-apache-test-ip                                                    720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-a86ec53714ce311ea860b5e791a5e2dd                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp-ops-graylog-lb-pip                                                      720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-a9d459d87b22c11e9aac2de5378ae302                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-a789bbee0a4d54888a8388e193eb0aa5                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp-ops-grafana-pip                                                         720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp-dev-pcm-03-ip                                                           720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-ae86ac757725911eaac45663a082e88a                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
 VnetEndpoint                                                                720.00       1 Hour          eastus2         Microsoft.Network/privateEndpoints                 Virtual Network
+publicip-fortiweb                                                           720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
 kubernetes-ae57254eb2f8f11eabaff2a9a4d36176                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
 pkpapp_apxapp                                                               720.00       1 Hour          eastus2         Microsoft.Network/privateEndpoints                 Virtual Network
-pkp-dev-pcm-03-ip                                                           720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-pkp-ops-sonarqube-pip                                                       720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-ae86ac757725911eaac45663a082e88a                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-pkp-ops-grafana-pip                                                         720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-kubernetes-aca358acbf01a11e9aa42f6934205efc                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+peak-conn-sql01-ip                                                          720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-aefe2b6bd95ec11eaa8d5c69d7758580                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
 pkpdevaas1                                                                  720.00       1 Hour          eastus2         Microsoft.AnalysisServices/servers                 Azure Analysis Services
+kubernetes-aed662fca1d7d43a7af0b0bb14f06edb                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp_cluster_to_apxapp                                                       720.00       1 Hour          eastus2         Microsoft.Network/privateEndpoints                 Virtual Network
+kubernetes-aca358acbf01a11e9aa42f6934205efc                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+peak-conn-app01-ip                                                          720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+CarrierPortalExtract20200412124142Plan                                      720.00       1 Hour          southcentralus  Microsoft.Web/serverFarms                          Azure App Service
+kubernetes-a9d299d1bb22c11e9aac2de5378ae302                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+peaksearch                                                                  720.00       1 Hour          eastus2         Microsoft.Search/searchServices                    Azure Cognitive Search
+pkpops_apxapp                                                               720.00       1 Hour          eastus2         Microsoft.Network/privateEndpoints                 Virtual Network
+fwdevtest-Nic0                                                              720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+pkp-ops-sonarqube-pip                                                       720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-af0d47cb595ec11eaa8d5c69d7758580                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
+kubernetes-ada448089725911eaac45663a082e88a                                 720.00       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
 Not Found                                                                   718.00       1/Hour                          N/A                                                Security Center
 p-pcmiler-vm                                                                654.64       1 GB            eastus2         Microsoft.Compute/virtualMachines                  Bandwidth Virtual Machines
 ppcmilervmip793                                                             652.56       1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
@@ -250,12 +250,12 @@ Not Found                                                                   50.9
 customer_invoicingQA                                                        32.00        1               eastus2         Microsoft.Logic/workflows                          Logic Apps
 FuelImportQA                                                                32.00        1               eastus2         Microsoft.Logic/workflows                          Logic Apps
 customer_invoicing                                                          32.00        1               eastus2         Microsoft.Network/publicIPAddresses                Logic Apps
-FuelImport                                                                  32.00        1               eastus2         Microsoft.Logic/workflows                          Logic Apps
+FuelImport                                                                  32.00        1               eastus2         Microsoft.Compute/disks                            Logic Apps
 apxapp                                                                      30.00        1/Day           eastus2         Microsoft.ContainerRegistry/registries             Container Registry
-pkp-ops-config                                                              30.00        1/Day           eastus2         Microsoft.AppConfiguration/configurationStores     App Configuration
 peakConfiguration                                                           30.00        1/Day           eastus2         Microsoft.AppConfiguration/configurationStores     App Configuration
-pkp-dev-sigr-01                                                             30.00        1/Day           eastus2         Microsoft.SignalRService/SignalR                   SignalR
 configtestJFK                                                               30.00        1/Day           eastus          Microsoft.AppConfiguration/configurationStores     App Configuration
+pkp-dev-sigr-01                                                             30.00        1/Day           eastus2         Microsoft.SignalRService/SignalR                   SignalR
+pkp-ops-config                                                              30.00        1/Day           eastus2         Microsoft.AppConfiguration/configurationStores     App Configuration
 storageaccountdefaua99e                                                     14.19        1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Advanced Threat Protection Storage
 cs7aea4d8321305x4376x8df                                                    5.33         1 GB/Month      southcentralus  Microsoft.Storage/storageAccounts                  Advanced Threat Protection Storage
 cs1aea4d8321305x4376x8df                                                    5.31         1 GB/Month      southeastasia   Microsoft.Storage/storageAccounts                  Advanced Threat Protection Storage
@@ -268,30 +268,30 @@ p-pcmiler-vm_disk1_4d32bd04794246fb8cc0b5c6dbbab4ff                         1.89
 p-pcmiler-vm_disk1_f565028341d1461197180ccc7e0b064c                         1.82         1 GB            eastus2         Microsoft.Compute/disks                            Bandwidth Storage
 log-analytics-workspace-peak-dev                                            1.48         1 GB            eastus2         Microsoft.OperationalInsights/workspaces           Log Analytics
 ppcmilervmip205                                                             1.35         1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
-privatelink.azurecr.io                                                      0.98         1               eastus2         Microsoft.Compute/snapshots                        Azure DNS
+privatelink.azurecr.io                                                      0.98         1               eastus2         Microsoft.Search/searchServices                    Azure DNS
 pkp-dev-dba-sql-01                                                          0.97         1/Month         eastus2         Microsoft.Storage/storageAccounts                  Advanced Data Security
-aod-dev-test                                                                0.97         1/Month         eastus2         Microsoft.Storage/storageAccounts                  Advanced Data Security
+aod-dev-test                                                                0.97         1/Month                         N/A                                                Advanced Data Security
 ascentgl.com                                                                0.97         1               global          Microsoft.Network/dnszones                         Azure DNS
 peakplatform.io                                                             0.97         1               global          Microsoft.Network/dnszones                         Azure DNS
-peakplatform.io                                                             0.97         1               eastus          Microsoft.DataFactory/factories                    Azure DNS
-privatelink.azurecr.io                                                      0.97         1               eastus2         Microsoft.KeyVault/vaults                          Azure DNS
-sonarqube-apache-test_disk1_e4e6fa97790f4bd5affd3861ae74c3b5                0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+privatelink.azurecr.io                                                      0.97         1               eastus2         Microsoft.Compute/disks                            Azure DNS
+peakplatform.io                                                             0.97         1               eastus2         Microsoft.KeyVault/vaults                          Azure DNS
 sonarqube-auth-test-v2_disk1_7e4156f75d3147998f4e7398d4ce777f               0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+sonarqube-apache-test_disk1_e4e6fa97790f4bd5affd3861ae74c3b5                0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+sonarqube-auth-test_disk1_904e0765ab4b4b3c8fb6f35a48f9d418                  0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 fwdevtest_disk2_49fce5a9797a49e2859553c027d0afe8                            0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 fwdevtest_OsDisk_1_b80ea07ebe8c467fa21c9c51858205fa                         0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-sonarqube-auth-test_disk1_904e0765ab4b4b3c8fb6f35a48f9d418                  0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 grafana-osdisk                                                              0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-pcmilertmpl-osdisk-20200306-185800                                          0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+peak-conn-app01_OsDisk_1_3a85ba010faa4fada5f7367a8455f191                   0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 peak-conn-sql01-disk4                                                       0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 peak-conn-app01_DataDisk_0                                                  0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+pkp-dev-pcm                                                                 0.97         1/Month                         N/A                                                Storage
 pcmilerimg-osdisk-20200306-192721                                           0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-pkp-dev-pcm-02_OsDisk_1_061bdd77f5af40f7878ff4ba9038e430                    0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-mesca-mongo-vm_OsDisk_1_c38c57b9d55b4e52bbf6921a56d91026                    0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-pkp-dev-pcm                                                                 0.97         1/Month         eastus2         Microsoft.Storage/storageAccounts                  Storage
+pcmilertmpl-osdisk-20200306-185800                                          0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 peak-conn-sql01_disk2_cbfd03c48ad14011a3d4f922215366b9                      0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-peak-conn-sql01_disk3                                                       0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
-peak-conn-app01_OsDisk_1_3a85ba010faa4fada5f7367a8455f191                   0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 peak-conn-sql01_OsDisk_1_caea4e84f1194f4591d19490a26d6afc                   0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+peak-conn-sql01_disk3                                                       0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+mesca-mongo-vm_OsDisk_1_c38c57b9d55b4e52bbf6921a56d91026                    0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
+pkp-dev-pcm-02_OsDisk_1_061bdd77f5af40f7878ff4ba9038e430                    0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 pkp-ops-ad-mgmt_disk1_9e46ca1ae6ff42a09ed48da8a654355a                      0.97         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 p-pcmiler-vm_disk1_8ea011460a2a479a987d172bb41e37af                         0.88         1/Month         eastus2         Microsoft.Compute/disks                            Storage
 p-pcmiler-vm_disk1_63b3fe282cd2454f8a70a7c930b35f37                         0.88         1/Month         eastus2         Microsoft.Compute/disks                            Storage
@@ -306,12 +306,12 @@ pkpterraform                                                                0.48
 storageaccountpkpap9379                                                     0.47         1 GB/Month      eastus2         Microsoft.Storage/storageAccounts                  Advanced Threat Protection Storage
 p-pcmiler-vm-ip                                                             0.40         1 Hour          eastus2         Microsoft.Network/publicIPAddresses                Virtual Network
 dev-peak                                                                    0.03         10K             eastus2         Microsoft.KeyVault/vaults                          Key Vault
-peakasync                                                                   0.01         1M              eastus2         Microsoft.Compute/disks                            Service Bus
+peakasync                                                                   0.01         1M              eastus          Microsoft.Storage/storageAccounts                  Service Bus
 peakasync-qa                                                                0.01         1M              eastus2         Microsoft.ServiceBus/namespaces                    Service Bus
 CarrrierPortal                                                              0.00         1 GB            eastus2         microsoft.insights/components                      Log Analytics
 CarrrierPortal                                                              0.00         1 GB            eastus2         Microsoft.Web/sites                                Bandwidth
 pkp-ops-key-vault                                                           0.00         10K             eastus2         Microsoft.KeyVault/vaults                          Key Vault
-pkpcdnsvc                                                                   0.00         1 GB            eastus2         Microsoft.AppConfiguration/configurationStores     Content Delivery Network
+pkpcdnsvc                                                                   0.00         1 GB            eastus2         Microsoft.Compute/disks                            Content Delivery Network
 ADF-PEAK-DEV                                                                0.00         50K             eastus          Microsoft.DataFactory/factories                    Azure Data Factory v2
 pkpdatapush                                                                 0.00         50K             eastus2         Microsoft.DataFactory/factories                    Azure Data Factory v2
 

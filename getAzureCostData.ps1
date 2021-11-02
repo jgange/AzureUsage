@@ -49,12 +49,32 @@ $azSubscriptions | ForEach-Object {
 
         $azgitem = $_
 
+        $l = $azgitem.Group.InstanceLocation | Get-Unique
+        if( ($l.GetType()).Name -ne 'String') 
+        { 
+            $location = [String]::Join(" ",($l | Sort-Object | Get-Unique))
+        }
+        else
+        {
+            $location = $l
+        }
+
+        $t = $azgitem.Group.ConsumedService | Get-Unique
+        if( ($t.GetType()).Name -ne 'String') 
+        { 
+            $type = [String]::Join(" ",($t | Sort-Object | Get-Unique))
+        }
+        else
+        {
+            $type = $t
+        }
+
             $costItem = New-Object PSObject -Property ([ordered]@{
               "Total Cost"        = ($_.Group | Measure-Object -Property PretaxCost -Sum).Sum
               "Number of Charges" = $_.Count
               "Resource Name"     = $_.Name
-              "Location"          = $azgitem.Group.InstanceLocation | Get-Unique
-              "Resource Type"     = $azgitem.Group.ConsumedService | Get-Unique
+              "Location"          = $location
+              "Resource Type"     = $type
               "Product"           = $azgitem.Group.Product | Get-Unique
               "Subscription"      = $azgitem.Group.SubscriptionName | Get-Unique
            })

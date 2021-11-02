@@ -215,8 +215,8 @@ Function getIdleResources()
         $subName = $_.Name
 
         Write-Host "`n`nSubscription name: $subName`n"
-        '{0,-75} {0,-50} {2,-50} {3,-15} {4,-12}' -f "Resource Name", "Resource Group", "Type", "Location", "Status"
-        '{0,-75} {0,-50} {2,-30} {3,-15} {4,-12}' -f "-------------", "--------------", "----", "--------", "------"
+        '{0,-78} {0,-93} {2,-54} {3,-12}' -f "Resource Name", "Resource Group", "Type", "Location"
+        '{0,-78} {0,-93} {2,-54} {3,-12}' -f "-------------", "--------------", "----", "--------"
 
         $idleList | ForEach-Object {
            $item = $_
@@ -224,7 +224,7 @@ Function getIdleResources()
                     ( ($_.ResourceId -eq $item) -and ($_.SubscriptionId -eq $subId) )
                     }))
                {
-                    '{0,-75} {0,-50} {2,-50} {3,-15} {4,-12}' -f $resource.ResourceName, $resource.ResourceGroupName, $resource.ResourceType, $resource.Location, $resource.Status
+                    '{0,-78} {0,-93} {2,-54} {3,-12}' -f $resource.ResourceName, $resource.ResourceGroupName, $resource.ResourceType, $resource.Location
                 }
             }
 
