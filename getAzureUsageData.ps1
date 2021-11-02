@@ -8,7 +8,14 @@
     $includeDetail = "True",                                              # only shows subscription totals if false - add _Summary if false, or _Detail if true
     [ValidateSet("True", "False")]
     [string]
-    $showIdleAssets = "True"                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true   
+    $showIdleAssets = "True",                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true
+    [ValidateScript({
+       if( -Not ($_ | Test-Path) ){
+          throw "Directory does not exist. Please create the directory to store the reports before running this script."
+            }
+       return $true
+        })]
+    [string] $reportFilePath = $env:USERPROFILE                           # Accept either a user given path, or default to the user profile folder
 )
 
 # Program documentation
@@ -23,14 +30,12 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\Reports\AzureUsageReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
+$outputFile = ($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
 
-Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail"
+#Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail    Report file path: $reportFilePath"
+#$outputFile
 
-if ($includeDetail)
-{
-    $reportType = "_Detail.txt"
-}
+
 
 # Storage for Azure resources and subscriptions
 $azureSubscriptions  = @()                                                                                        # Stores available subscriptions
@@ -240,6 +245,7 @@ Function getIdleResources()
 if (!($azc.Context.Tenant))
 {
     $azc = Connect-AzAccount
+    sleep -Seconds 10
 }
 
 # Retrieve all the Azure resources
