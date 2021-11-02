@@ -44,7 +44,7 @@ $outputFile = ($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDa
 if (!($azc.Context.Tenant))
 {
     $azc = Connect-AzAccount
-    sleep -Seconds 10
+    sleep -Seconds 15
 }
 
 $azSubscriptions = Get-AzSubscription

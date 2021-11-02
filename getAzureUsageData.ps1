@@ -30,7 +30,7 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
+$outputFile = ($reportFilePath + "\AzureUsageReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
 
 #Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail    Report file path: $reportFilePath"
 #$outputFile
@@ -207,7 +207,7 @@ Function getIdleResources()
 {
     $azu          = ($azureUsageRecords."Resource Id" | Sort-Object | Get-Unique)              # Get list of resource Ids from usage data; list is sorted to properly remove duplicates.
     $idleList     = $azureResources.ResourceId | Where-Object { $_ -notin $azu }               # Generate list of resource Ids which are not in the usage list.
-    $outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\Reports\AzureIdleResourcesReport_" + $startDate + "_" + $endDate + ".txt").Replace("/","-")
+    $outputFile = ($reportFilePath + "\AzureIdleResourcesReport_" + $startDate + "_" + $endDate + ".txt").Replace("/","-")
              
     Start-Transcript -Path $outputFile
 
@@ -245,7 +245,7 @@ Function getIdleResources()
 if (!($azc.Context.Tenant))
 {
     $azc = Connect-AzAccount
-    sleep -Seconds 10
+    sleep -Seconds 15
 }
 
 # Retrieve all the Azure resources
