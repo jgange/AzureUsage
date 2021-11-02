@@ -8,7 +8,7 @@
     $includeDetail = "True",                                              # only shows subscription totals if false - add _Summary if false, or _Detail if true
     [ValidateSet("True", "False")]
     [string]
-    $showIdleAssets = "False"                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true   
+    $showIdleAssets = "True"                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true   
 )
 
 # Program documentation
@@ -202,20 +202,36 @@ Function getIdleResources()
 {
     $azu          = ($azureUsageRecords."Resource Id" | Sort-Object | Get-Unique)              # Get list of resource Ids from usage data; list is sorted to properly remove duplicates.
     $idleList     = $azureResources.ResourceId | Where-Object { $_ -notin $azu }               # Generate list of resource Ids which are not in the usage list.
-    $outputBlock  = [System.Collections.ArrayList]@()                
+    $outputFile = ("C:\Users\jgange\Projects\PowerShell\AzureUsage\Reports\AzureIdleResourcesReport_" + $startDate + "_" + $endDate + ".txt").Replace("/","-")
+             
+    Start-Transcript -Path $outputFile
 
-    $outputBlock.Add("Resources in Azure with no usage data during the selected period`n")
-    $outputBlock.Add("Date range selected: $startDate to $endDate`n")
+    Write-Host "Resources in Azure with no usage data during the selected period`n"
+    Write-Host "Date range selected: $startDate to $endDate`n"
     
-    # $header = "'{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f"
+    $azureSubscriptions | ForEach-Object {
 
-    # Iterate through the list of resource Ids and get the rest of the resource information
+        $subId = $_.Id
+        $subName = $_.Name
 
-    $idleList | ForEach-Object {
-        $resource = ($azureResources.ResourceId -match $_)
-        '{0,-75} {1,-12:n2} {2,-15} {3,-15} {4,-50} {5,-25}' -f $resource.ResourceName, $resource.ResourceGroupName, $resource.ResourceType, $resource.Location, $resource.ParentResource, $resource.Status
-    }
+        Write-Host "`n`nSubscription name: $subName`n"
+        '{0,-75} {0,-50} {2,-50} {3,-15} {4,-12}' -f "Resource Name", "Resource Group", "Type", "Location", "Status"
+        '{0,-75} {0,-50} {2,-30} {3,-15} {4,-12}' -f "-------------", "--------------", "----", "--------", "------"
 
+        $idleList | ForEach-Object {
+           $item = $_
+               if( $resource = ($azureResources | Where-Object { 
+                    ( ($_.ResourceId -eq $item) -and ($_.SubscriptionId -eq $subId) )
+                    }))
+               {
+                    '{0,-75} {0,-50} {2,-50} {3,-15} {4,-12}' -f $resource.ResourceName, $resource.ResourceGroupName, $resource.ResourceType, $resource.Location, $resource.Status
+                }
+            }
+
+        } # End Subscription loop
+    Stop-Transcript
+    # strip the transcript info out of the file
+    (Get-Content $outputFile | Select-Object -Skip 19) | Select-Object -SkipLast 4 |Set-Content $outputFile
 }
 
 ### Main Program ###
@@ -383,3 +399,4 @@ Stop-Transcript
 # strip the transcript info out of the file
 (Get-Content $outputFile | Select-Object -Skip 19) | Select-Object -SkipLast 4 |Set-Content $outputFile
 
+if  ($showIdleAssets = 'True') { getIdleResources }
