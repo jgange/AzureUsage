@@ -1,14 +1,28 @@
 ﻿param (
+    [ValidateScript(
+    {
+      if ( [datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-90) -and [datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1) ) { $true }
+      else { throw "Please enter a date between yesterday and 90 days ago."}
+    })]
     [string]
-    $startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),  # defaults to 30 days prior to last collection date
+    $startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),
+
+    [ValidateScript(
+    {
+      if ([datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-89) -and ([datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1)) -and ([datetime]$_ -gt $startDate)) { $true }
+      else { throw "Please enter a date between yesterday and 90 days ago which is at least one day after the start date."}
+    })]
     [string]
-    $endDate   = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),   # last current collection date
+    $endDate = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),
+
     [ValidateSet("True", "False")]
     [string]
     $includeDetail = "True",                                              # only shows subscription totals if false - add _Summary if false, or _Detail if true
+
     [ValidateSet("True", "False")]
     [string]
     $showIdleAssets = "True",                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true
+
     [ValidateScript({
        if( -Not ($_ | Test-Path) ){
           throw "Directory does not exist. Please create the directory to store the reports before running this script."
@@ -30,12 +44,12 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ($reportFilePath + "\AzureUsageReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
+$outputFile = (($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-") -Replace"\s\d{2}:\d{2}:\d{2}")
 
 #Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail    Report file path: $reportFilePath"
-#$outputFile
+$outputFile
 
-
+exit 0
 
 # Storage for Azure resources and subscriptions
 $azureSubscriptions  = @()                                                                                        # Stores available subscriptions

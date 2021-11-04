@@ -32,6 +32,19 @@ $azureCostData = [System.Collections.ArrayList]@()
 $subscriptionTotalCost = @{}
 $reportType = "_Summary.txt"
 
+# Support for using a service principal instead an interactive log on
+
+# Required Azure AD information for Service Account
+
+$tenantId = '7797ca53-b03e-4a03-baf0-13628aa79c92'
+$applicationId = "0702023c-176d-46e8-81bc-5e79e7de57cd"
+
+# These files must have already been populated with the correct AES key and encrypted password -- ideally these should be in a key vault
+$KeyFile = Join-Path $env:USERPROFILE -ChildPath "AES.key"
+$PasswordFile = Join-Path -Path $env:USERPROFILE -ChildPath "Password.txt"
+
+[boolean]$useSP = $true
+
 if ($includeDetail -eq "$True")
 {
     $reportType = "_Detail.txt"
@@ -44,8 +57,17 @@ $outputFile = (($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endD
 # Check if a connection to Azure exists
 if (!($azc.Context.Tenant))
 {
-    $azc = Connect-AzAccount
-    sleep -Seconds 15
+    If ($useSP)
+    {
+        $Key = Get-Content $KeyFile
+        $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $applicationId, (Get-Content $PasswordFile | ConvertTo-SecureString -Key $key)
+        $azc = Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $tenantId
+    }
+    else
+    {
+        $azc = Connect-AzAccount
+        sleep -Seconds 15
+    }
 }
 
 $azSubscriptions = Get-AzSubscription
