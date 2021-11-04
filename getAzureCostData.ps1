@@ -1,19 +1,24 @@
 ﻿param (
     [ValidateScript(
     {
-      if ($_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-90) -and $_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1)) { $true }
-      else { throw "Please enter a date between yesterday and 90 days ago."}
+      if ( [datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-180) -and [datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1) ) { $true }
+      else { throw "Please enter a date between yesterday and 180 days ago."}
     })]
-    [string] $startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),
+    [string]
+    $startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),
+
     [ValidateScript(
     {
-      if ($_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-90) -and $_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1) -and ($_ -gt $startDate)) { $true }
-      else { throw "Please enter a date between yesterday and 90 days ago which is at least one day after the start date."}
+      if ([datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-179) -and ([datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1)) -and ([datetime]$_ -gt $startDate)) { $true }
+      else { throw "Please enter a date between yesterday and 180 days ago which is at least one day after the start date."}
     })]
-    [string] $endDate = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),
+    [string]
+    $endDate = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),
+
     [ValidateSet("True", "False")]
     [string]
-    $includeDetail = "True",                                           # only shows subscription totals if false - add _Summary if false, or _Detail if true
+    $includeDetail = "True", 
+                                              # only shows subscription totals if false - add _Summary if false, or _Detail if true
     [ValidateScript({
             if( -Not ($_ | Test-Path) ){
                 throw "Directory does not exist. Please create the directory to store the reports before running this script."
@@ -32,11 +37,7 @@ if ($includeDetail -eq "$True")
     $reportType = "_Detail.txt"
 }
 
-$outputFile = ($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-")
-
-#Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail    Report file path: $reportFilePath"
-#$outputFile
-
+$outputFile = (($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-") -Replace"\s\d{2}:\d{2}:\d{2}")
 
 ### Main Program ###
 
