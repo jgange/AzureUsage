@@ -276,10 +276,10 @@ $snum = 0
 
 $azureSubscriptions | ForEach-Object {
 
-# Add the days to look up usage data
-0..($numDays-1) | ForEach-Object {
-    $dateQ.Enqueue($sd.AddDays($_))
-}
+    # Add the days to look up usage data
+    0..($numDays-1) | ForEach-Object {
+        $dateQ.Enqueue($sd.AddDays($_))
+    }
 
 # Create the Runspace pool and an empty array to store the runspaces
 $pool = [RunspaceFactory]::CreateRunspacePool(1, $maxpoolsize)
@@ -326,14 +326,22 @@ $snum++
 
 Write-Progress -Completed -Activity "Getting Usage data for all subscriptions"
 
-if ($showIdleAssets -eq 'False')
+if ($showIdleAssets -like 'False')
 {
+
+$showIdleAssets
+$startDate
+$endDate
+$runInteractive
+$reportFilePath
 
 Start-Transcript -Path $outputFile
 
 Write-Host "`nDate Range: $startDate to $endDate`n"
 
-$azureSubscriptions | ForEach-Object {
+$global:azureSubscriptions | ForEach-Object {
+
+    Write-Host "Inside Subscription loop"
 
     $subId = $_.Id
     $subName = $_.Name
