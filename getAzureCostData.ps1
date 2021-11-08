@@ -1,7 +1,7 @@
 ﻿param (
     [ValidateScript(
     {
-      if ( [datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-180) -and [datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1) ) { $true }
+      if ( [datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-180) -and [datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-2) ) { $true }
       else { throw "Please enter a date between yesterday and 180 days ago."}
     })]
     [string]

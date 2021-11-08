@@ -1,7 +1,7 @@
 ﻿param (
     [ValidateScript(
     {
-      if ( [datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-90) -and [datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-1) ) { $true }
+      if ( [datetime]$_ -gt (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-90) -and [datetime]$_ -le (Get-Date -Hour 0 -Minute 0 -Second 0).AddDays(-2) ) { $true }
       else { throw "Please enter a date between yesterday and 90 days ago."}
     })]
     [string]
@@ -17,11 +17,11 @@
 
     [ValidateSet("True", "False")]
     [string]
-    $includeDetail = "True",                                              # only shows subscription totals if false - add _Summary if false, or _Detail if true
+    $runInteractive = "False",                                             # determines whether the report uses an interactive logon or the specified service principal
 
     [ValidateSet("True", "False")]
     [string]
-    $showIdleAssets = "True",                                             # only shows subscription totals if false - add _Summary if false, or _Detail if true
+    $showIdleAssets = "False",                                             # generates a report of resources with no associated usage data for the specified period
 
     [ValidateScript({
        if( -Not ($_ | Test-Path) ){
@@ -37,20 +37,9 @@
 
 # Variable definitions
 
-$reportType = "_Summary.txt"
-
-if ($includeDetail -eq "$True")
-{
-    $reportType = "_Detail.txt"
-}
-
-$outputFile = (($reportFilePath + "\AzureCostReport_" + $startDate + "_" + $endDate + $reportType).Replace("/","-") -Replace"\s\d{2}:\d{2}:\d{2}")
-
-#Write-Host "Running with the following settings- Start date: $startDate    End date: $endDate    Detail level: $includeDetail    Report file path: $reportFilePath"
-$outputFile
+$outputFile = (($reportFilePath + "\AzureUsageReport_" + $startDate + "_" + $endDate +".txt").Replace("/","-") -Replace"\s\d{2}:\d{2}:\d{2}")
 
 # Support for using a service principal instead an interactive log on
-
 # Required Azure AD information for Service Account
 
 $tenantId = '7797ca53-b03e-4a03-baf0-13628aa79c92'
@@ -59,9 +48,6 @@ $applicationId = "0702023c-176d-46e8-81bc-5e79e7de57cd"
 # These files must have already been populated with the correct AES key and encrypted password -- ideally these should be in a key vault
 $KeyFile = Join-Path $env:USERPROFILE -ChildPath "AES.key"
 $PasswordFile = Join-Path -Path $env:USERPROFILE -ChildPath "Password.txt"
-
-[boolean]$useSP = $true
-
 
 # Storage for Azure resources and subscriptions
 $azureSubscriptions  = @()                                                                                        # Stores available subscriptions
@@ -149,11 +135,13 @@ Function getAzureResources()
 {
     $global:azureSubscriptions = Get-AzSubscription
 
+    if ($global:azureSubscriptions.Count -eq 0) { Write-Host "Failed to connect, exiting script"; exit 1 }
+
     $snum = 0
 
     $global:azureSubscriptions | ForEach-Object {
 
-        $pc = [math]::Round(($snum/$azureSubscriptions.Count)*100)
+        $pc = [math]::Round(($snum/$global:azureSubscriptions.Count)*100)
 
         Write-Progress -Activity "Getting Azure resources for all subscriptions" -Status "Working on subscription: $($_.Name) - Percent complete $pc%" -PercentComplete $pc
 
@@ -268,19 +256,15 @@ Function getIdleResources()
 ### Main Program ###
 
 # Check if a connection to Azure exists and connect either interactively or using a service account
-if (!($azc.Context.Tenant))
+If ($runInteractive -eq 'False')
 {
-    If ($useSP)
-    {
-        $Key = Get-Content $KeyFile
-        $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $applicationId, (Get-Content $PasswordFile | ConvertTo-SecureString -Key $key)
-        $azc = Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $tenantId
-    }
-    else
-    {
-        $azc = Connect-AzAccount
-        sleep -Seconds 15
-    }
+    $Key = Get-Content $KeyFile
+    $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $applicationId, (Get-Content $PasswordFile | ConvertTo-SecureString -Key $key)
+    $azc = Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $tenantId
+}
+else
+{
+    $azc = Connect-AzAccount
 }
 
 # Retrieve all the Azure resources
@@ -305,7 +289,6 @@ $runspaces = @()
 
 $null = (Set-AzContext -Subscription $_.Id)
 
-#Write-Host "Setting subscription to $($_.Name)"
 $pc = [math]::Round(($snum/$azureSubscriptions.Count)*100)
 
 Write-Progress -Activity "Getting Usage data for all subscriptions" -Status "Working on subscription: $($_.Name) - Percent complete $pc%" -PercentComplete $pc
@@ -342,6 +325,9 @@ $snum++
 } # End subscription loop
 
 Write-Progress -Completed -Activity "Getting Usage data for all subscriptions"
+
+if ($showIdleAssets -eq 'False')
+{
 
 Start-Transcript -Path $outputFile
 
@@ -439,5 +425,5 @@ Stop-Transcript
 
 # strip the transcript info out of the file
 (Get-Content $outputFile | Select-Object -Skip 19) | Select-Object -SkipLast 4 |Set-Content $outputFile
-
-if  ($showIdleAssets = 'True') { getIdleResources }
+}
+else { getIdleResources }
