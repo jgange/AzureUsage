@@ -5,7 +5,7 @@
       else { throw "Please enter a date between yesterday and 180 days ago."}
     })]
     [string]
-    $startDate = (Get-Date).AddDays(-31).tostring(“MM-dd-yyyy”),
+    $startDate = (Get-Date).AddDays(-31).tostring(“yyyy-MM-dd”),
 
     [ValidateScript(
     {
@@ -13,7 +13,7 @@
       else { throw "Please enter a date between yesterday and 180 days ago which is at least one day after the start date."}
     })]
     [string]
-    $endDate = (Get-Date).AddDays(-1).tostring(“MM-dd-yyyy”),
+    $endDate = (Get-Date).AddDays(-1).tostring(“yyyy-MM-dd”),
 
     [ValidateSet("True", "False")]
     [string]
