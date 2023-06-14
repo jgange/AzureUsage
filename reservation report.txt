@@ -1,0 +1,104 @@
+**********************
+PowerShell transcript start
+Start time: 20230217094203
+**********************
+Transcript started, output file is .\reservation report.txt
+Subscription = pod-dev
+Kind                           : legacy
+Id                             : billingAccount/e48da26e-6a86-4902-b383-0abbf5e50ce3/providers/Microsoft.Consumption/reservationRecommendations/556e4857-b2c8-4d97-8f45-6298c7b4d3d8
+Name                           : 556e4857-b2c8-4d97-8f45-6298c7b4d3d8
+Type                           : Microsoft.Consumption/reservationRecommendations
+Location                       : eastus2
+SKU                            : Standard_D4s_v3
+
+meterId                        : aa182a10-b13d-41c5-8028-2cb317e7d050
+term                           : P1Y
+costWithNoReservedInstances    : 143.014418688
+recommendedQuantity            : 5
+totalCostWithReservedInstances : 85.3007990867526
+netSavings                     : 57.7136196012473
+firstUsageDate                 : 2/11/2023 12:00:00 AM
+scope                          : Single
+lookBackPeriod                 : Last7Days
+subscriptionId                 : e48da26e-6a86-4902-b383-0abbf5e50ce3
+resourceType                   : 
+instanceFlexibilityRatio       : 2
+instanceFlexibilityGroup       : DSv3 Series
+normalizedSize                 : Standard_D2s_v3
+recommendedQuantityNormalized  : 10
+skuProperties                  : {}
+
+Kind                           : legacy
+Id                             : billingAccount/e48da26e-6a86-4902-b383-0abbf5e50ce3/providers/Microsoft.Consumption/reservationRecommendations/1187bdca-8ab5-4fd9-a2ed-bb4f3491b122
+Name                           : 1187bdca-8ab5-4fd9-a2ed-bb4f3491b122
+Type                           : Microsoft.Consumption/reservationRecommendations
+Location                       : eastus2
+SKU                            : Standard_D4s_v3
+meterId                        : aa182a10-b13d-41c5-8028-2cb317e7d050
+term                           : P3Y
+costWithNoReservedInstances    : 143.014418688
+recommendedQuantity            : 5
+totalCostWithReservedInstances : 54.9111491628597
+netSavings                     : 88.1032695251403
+firstUsageDate                 : 2/11/2023 12:00:00 AM
+scope                          : Single
+lookBackPeriod                 : Last7Days
+subscriptionId                 : e48da26e-6a86-4902-b383-0abbf5e50ce3
+resourceType                   : 
+instanceFlexibilityRatio       : 2
+instanceFlexibilityGroup       : DSv3 Series
+normalizedSize                 : Standard_D2s_v3
+recommendedQuantityNormalized  : 10
+skuProperties                  : {}
+
+Subscription = pod-prod
+Kind                           : legacy
+Id                             : billingAccount/71d47c29-7e5d-4ed5-8374-8be22795bb72/providers/Microsoft.Consumption/reservationRecommendations/364a792a-1118-4628-8b2b-8d793d433b37
+Name                           : 364a792a-1118-4628-8b2b-8d793d433b37
+Type                           : Microsoft.Consumption/reservationRecommendations
+Location                       : eastus
+SKU                            : Standard_DS2_v2
+meterId                        : 14fc9a21-4919-4cb1-b495-5666966556bc
+term                           : P1Y
+costWithNoReservedInstances    : 65.45180657
+recommendedQuantity            : 3
+totalCostWithReservedInstances : 27.7980589498038
+netSavings                     : 37.6537476201962
+firstUsageDate                 : 2/11/2023 12:00:00 AM
+scope                          : Single
+lookBackPeriod                 : Last7Days
+subscriptionId                 : 71d47c29-7e5d-4ed5-8374-8be22795bb72
+resourceType                   : 
+instanceFlexibilityRatio       : 2
+instanceFlexibilityGroup       : DSv2 Series
+normalizedSize                 : Standard_DS1_v2
+recommendedQuantityNormalized  : 6
+skuProperties                  : {}
+
+Kind                           : legacy
+Id                             : billingAccount/71d47c29-7e5d-4ed5-8374-8be22795bb72/providers/Microsoft.Consumption/reservationRecommendations/7a01c745-b1e1-43f5-bc17-cc90de5ff61a
+Name                           : 7a01c745-b1e1-43f5-bc17-cc90de5ff61a
+Type                           : Microsoft.Consumption/reservationRecommendations
+Location                       : eastus
+SKU                            : Standard_DS2_v2
+meterId                        : 14fc9a21-4919-4cb1-b495-5666966556bc
+term                           : P3Y
+costWithNoReservedInstances    : 65.45180657
+recommendedQuantity            : 3
+totalCostWithReservedInstances : 18.2559356621357
+netSavings                     : 47.1958709078643
+firstUsageDate                 : 2/11/2023 12:00:00 AM
+scope                          : Single
+lookBackPeriod                 : Last7Days
+subscriptionId                 : 71d47c29-7e5d-4ed5-8374-8be22795bb72
+resourceType                   : 
+instanceFlexibilityRatio       : 2
+instanceFlexibilityGroup       : DSv2 Series
+normalizedSize                 : Standard_DS1_v2
+recommendedQuantityNormalized  : 6
+skuProperties                  : {}
+
+**********************
+PowerShell transcript end
+End time: 20230217094206
+**********************

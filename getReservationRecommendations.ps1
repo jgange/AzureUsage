@@ -24,7 +24,7 @@ function returnSubscriptionIdbyName([string] $subscriptionName)
 
 #### MAIN #####
 
-# Connect-AzAccount | Out-Null
+Connect-AzAccount | Out-Null
 
 $subList = Get-AzSubscription -TenantId $tenantID
 
