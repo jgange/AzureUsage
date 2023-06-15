@@ -70,7 +70,7 @@ function checkIdentityType($identity)
 
 function checkUserStatus($user)
 {
-   Get-AzADUser -ObjectId $user.SignInName | Select-Object -Property DisplayName, AccountEnabled, ApproximateLastSignInDateTime
+   Get-AzADUser -ObjectId $user.SignInName -Select AccountEnabled,LastPasswordChangeDateTime -AppendSelected | Select-Object DisplayName,AccountEnabled,UserPrincipalName,LastPasswordChangeDateTime
 }
 
 function checkServiceAccountStatus($account)
@@ -90,7 +90,8 @@ function ShowActiveUsers()
 
 function getGroupMembers($identity)
 {
-   Get-AzADGroup -DisplayName $identity.DisplayName
+   Write-Output "`nGroup Name $($identity.DisplayName)"
+   get-azadgroupmember -GroupDisplayName $identity.DisplayName -WarningAction SilentlyContinue
 }
 
 function checkServicePrincipal()
@@ -119,5 +120,6 @@ Write-Output "List of identities included in the report:`n"
 displayUserList $identities
 
 # Stop-Transcript
+
 
 $identities | ForEach-Object { checkIdentityType $_ }
