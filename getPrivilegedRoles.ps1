@@ -14,6 +14,8 @@
    Also output a list of users, groups and accounts to be checked for ex-employees or obselete applications
 #>
 $identities = [System.Collections.ArrayList]::new()
+$servicePrincipals = [System.Collections.ArrayList]::new()
+$azureADUsers = [System.Collections.ArrayList]::new()
 
 function DisplayReport($subscription)
 {
@@ -34,6 +36,7 @@ function DisplayReport($subscription)
             RoleDefinitionName = $_.RoleDefinitionName
             ObjectType         = $_.ObjectType
             CanDelete          = $_.CanDelegate
+            UserPrincipalName  = $_.SignInName
         }
         $identities.Add($roleRecord) | Out-Null
       }
@@ -61,65 +64,100 @@ function checkIdentityType($identity)
 {
    switch ($identity.ObjectType)
    {
-      "User" { checkUserStatus $identity }
-      "ServicePrincipal" { checkServiceAccountStatus $identity }
+      "User" { createUserList $identity }
+      "ServicePrincipal" { createServiceAccountList $identity $servicePrincipals}
       "Group" { getGroupMembers $identity }
-      default {$identity.ObjectType}
+      default {
+         # Write-Output "Unknown identity object type: $($identity.ObjectType)"
+      }
    }
 }
 
-function checkUserStatus($user)
+function createUserList($user)
 {
-   Get-AzADUser -ObjectId $user.SignInName -Select AccountEnabled,LastPasswordChangeDateTime -AppendSelected | Select-Object DisplayName,AccountEnabled,UserPrincipalName,LastPasswordChangeDateTime
+   $user = Get-AzADUser -ObjectId $user.UserPrincipalName -Select AccountEnabled,LastPasswordChangeDateTime -AppendSelected | Select-Object DisplayName,AccountEnabled,UserPrincipalName,LastPasswordChangeDateTime
+   $azureADUsers.Add($user) | Out-Null
 }
 
-function checkServiceAccountStatus($account)
+function createServiceAccountList($account, $servicePrincipals)
 {
-   Get-AzADServicePrincipal -DisplayName $account.DisplayName | Select-Object -Property DisplayName,AccountEnabled,AdditionalProperties
+   $sp = Get-AzADServicePrincipal -DisplayName $account.DisplayName | Select-Object -Property DisplayName,AccountEnabled,AppId,AdditionalProperties
+   $serviceAccountRecord = [PSCustomObject]@{
+      DisplayName        = $sp[0].DisplayName
+      AccountEnabled     = $sp[0].AccountEnabled
+      AppId              = $sp[0].AppId
+      UserPrincipalName  = $sp[0].AppId
+      CreatedDate        = $sp[0].AdditionalProperties.createdDateTime
+   }
+   $servicePrincipals.Add($serviceAccountRecord) | Out-Null
 }
 
-function ShowExpiredUsers()
+function ShowDisabled($list)
 {
-      # Get-AzureADUser -ObjectId "testUpn@tenant.com"
+   if ($list.Count -gt 0)
+   {
+      $list | Where-Object { $_.AccountEnabled -ne "True" } | Sort-Object -Property UserPrincipalName -Unique | Format-Table
+      Write-Output "`n"
+   }
+   else {
+      Write-Output "No records found."
+   }
+
 }
 
-function ShowActiveUsers()
+function ShowActive($list)
 {
-
+   if ($list.Count -gt 0)
+   {
+      $list | Where-Object { $_.AccountEnabled -eq "True" } | Sort-Object -Property UserPrincipalName -Unique | Format-Table
+      Write-Output "`n"
+   }
+   else {
+      Write-Output "No records found."
+   }
 }
 
 function getGroupMembers($identity)
 {
-   Write-Output "`nGroup Name $($identity.DisplayName)"
-   get-azadgroupmember -GroupDisplayName $identity.DisplayName -WarningAction SilentlyContinue
-}
-
-function checkServicePrincipal()
-{
-   
+   # Write-Output "`nGroup Name $($identity.DisplayName)"
+   $groupList = get-azadgroupmember -GroupDisplayName $identity.DisplayName -WarningAction SilentlyContinue
+   if ($groupList.Count -gt 0)
+   {
+      $groupList | ForEach-Object {
+         createUserList $_
+      }
+   }
 }
 
 #### Main Program ####
 [void](Update-AzConfig -DisplayBreakingChangeWarning $false)
 
-<#
 try {
    Get-AzureADTenantDetail
 }
 catch {
    Connect-AzAccount
 }
-#>
 
-# Start-Transcript -Path "./AzureRoles.txt"
+Start-Transcript -Path "./AzureRoles.txt"
 
-Get-AzSubscription | Select-Object -First 1 | ForEach-Object { DisplayReport $_ }
+Get-AzSubscription | Select-Object -First 50 | ForEach-Object { DisplayReport $_ }
 
 Write-Output "List of identities included in the report:`n"
 
-displayUserList $identities
-
-# Stop-Transcript
-
-
+# Sort identities into types
 $identities | ForEach-Object { checkIdentityType $_ }
+
+DisplayHeader "Active Users in Azure Active Directory"
+ShowActive $azureADUsers
+
+DisplayHeader "Disabled Users in Azure Active Directory"
+ShowDisabled $azureADUsers
+
+DisplayHeader "Active Service Principals in Azure Active Directory"
+ShowActive $servicePrincipals
+
+DisplayHeader "Disabled Service Principals in Azure Active Directory"
+ShowDisabled $servicePrincipals
+
+Stop-Transcript

@@ -1,6 +1,6 @@
 **********************
 PowerShell transcript start
-Start time: 20230613145638
+Start time: 20230615140356
 Username: PARADISE\jgange
 RunAs User: PARADISE\jgange
 Configuration Name: 
@@ -10,8 +10,8 @@ Copyright (c) Microsoft Corporation.
 
 https://aka.ms/vscode-powershell
 Type 'help' to get help.
-" -LogLevel 'Normal' -LogPath 'c:\Users\jgange\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\logs\1686665253-12381e3f-6e10-4dd2-b1ba-ebec6978f5871686665252062\EditorServices.log' -SessionDetailsPath 'c:\Users\jgange\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\sessions\PSES-VSCode-16200-312154.json' -FeatureFlags @() 
-Process ID: 11692
+" -LogLevel 'Normal' -LogPath 'c:\Users\jgange\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\logs\1686838648-d3eb05e9-1a89-4e77-9281-fb7db4a35d8d1686838647277\EditorServices.log' -SessionDetailsPath 'c:\Users\jgange\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\sessions\PSES-VSCode-4756-784869.json' -FeatureFlags @() 
+Process ID: 17316
 PSVersion: 7.3.4
 PSEdition: Core
 GitCommitId: 7.3.4
@@ -22,10 +22,14 @@ PSRemotingProtocolVersion: 2.3
 SerializationVersion: 1.1.0.1
 WSManStackVersion: 3.0
 **********************
+Account                SubscriptionName       TenantId                             Environment
+-------                ----------------       --------                             -----------
+joe.gange@ascentgl.com International Dev/Test 7797ca53-b03e-4a03-baf0-13628aa79c92 AzureCloud
 Transcript started, output file is ./AzureRoles.txt
 Subscription Name: International Dev/Test
 Resource Group: cloud-shell-storage-southcentralus
 -------------------------------------
+
 
 DisplayName                                                      SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                                                      ----------                        ------------------ ----------       -----------
@@ -73,7 +77,7 @@ vstsrrts-Ascent International-e91b6d6a-70db-4d28-a270-df1027772394              
 vstsrrts-Ascent International-e91b6d6a-70db-4d28-a270-df1027772394                                   Contributor        ServicePrincipal       False
 Ascent - International Development                                                                   Contributor        Group                  False
 Ascent - International Development                                                                   Contributor        Group                  False
-Rick Sonne                                                         richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                                                     Contributor        Unknown                False
                                                                                                      Contributor        Unknown                False
 mySP                                                                                                 Contributor        ServicePrincipal       False
 aoddevproj-Ascent-On-Demand-29273af7-0b31-4f82-8750-8d34fc31fbb1                                     Contributor        ServicePrincipal       False
@@ -179,7 +183,7 @@ Resource Group: infra-activedirectory
 
 DisplayName                                                    SignInName                         RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                         ------------------ ----------       -----------
-ascent-cmg-webapp                                                                                 Contributor        ServicePrincipal       False
+                                                                                                  Contributor        Unknown                False
 Site Reliability Engineering                                                                      Owner              Group                  False
 aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd                                    Contributor        ServicePrincipal       False
 Ascent - Azure IT Security                                                                        Contributor        Group                  False
@@ -221,27 +225,6 @@ Resource Group: NetworkWatcherRG
 
 DisplayName                                                    SignInName                         RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                         ------------------ ----------       -----------
-Site Reliability Engineering                                                                      Owner              Group                  False
-aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd                                    Contributor        ServicePrincipal       False
-Ascent - Azure IT Security                                                                        Contributor        Group                  False
-David Shelton                                                  david.shelton@ascentgl.com         Owner              User                   False
-Eric Hooper                                                    eric.hooper@ascentgl.com           Owner              User                   False
-aoddevproj-SRE-42969682-e78b-4708-a675-e23ddc5e08dd                                               Contributor        ServicePrincipal       False
-AZURE_ROLE-SYSTEMS_ENGINEERING                                                                    Owner              Group                  False
-Bryan Pershall                                                 bryan.pershall@ascentlogistics.com Owner              User                   False
-Steven Buckner                                                 steve.buckner@ascentlogistics.com  Owner              User                   False
-Steven Buckner                                                 steve.buckner@ascentlogistics.com  Owner              User                   False
-Steven Buckner                                                 steve.buckner@ascentlogistics.com  Owner              User                   False
-Andy Melichar                                                  andy.melichar@ascentgl.com         Owner              User                   False
-
-
-Resource Group: ascentcmg
--------------------------------------
-
-DisplayName                                                    SignInName                         RoleDefinitionName ObjectType       CanDelegate
------------                                                    ----------                         ------------------ ----------       -----------
-ascent-cmg-webapp                                                                                 Contributor        ServicePrincipal       False
-Shannon Collier                                                shannon.collier@ascentgl.com       Contributor        User                   False
 Site Reliability Engineering                                                                      Owner              Group                  False
 aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd                                    Contributor        ServicePrincipal       False
 Ascent - Azure IT Security                                                                        Contributor        Group                  False
@@ -381,6 +364,26 @@ Resource Group: Optimization
 
 DisplayName                                                    SignInName                         RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                         ------------------ ----------       -----------
+Site Reliability Engineering                                                                      Owner              Group                  False
+aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd                                    Contributor        ServicePrincipal       False
+Ascent - Azure IT Security                                                                        Contributor        Group                  False
+David Shelton                                                  david.shelton@ascentgl.com         Owner              User                   False
+Eric Hooper                                                    eric.hooper@ascentgl.com           Owner              User                   False
+aoddevproj-SRE-42969682-e78b-4708-a675-e23ddc5e08dd                                               Contributor        ServicePrincipal       False
+AZURE_ROLE-SYSTEMS_ENGINEERING                                                                    Owner              Group                  False
+Bryan Pershall                                                 bryan.pershall@ascentlogistics.com Owner              User                   False
+Steven Buckner                                                 steve.buckner@ascentlogistics.com  Owner              User                   False
+Steven Buckner                                                 steve.buckner@ascentlogistics.com  Owner              User                   False
+Steven Buckner                                                 steve.buckner@ascentlogistics.com  Owner              User                   False
+Andy Melichar                                                  andy.melichar@ascentgl.com         Owner              User                   False
+
+
+Resource Group: Ascentglcmg
+-------------------------------------
+
+DisplayName                                                    SignInName                         RoleDefinitionName ObjectType       CanDelegate
+-----------                                                    ----------                         ------------------ ----------       -----------
+CMG Azure Web App                                                                                 Contributor        ServicePrincipal       False
 Site Reliability Engineering                                                                      Owner              Group                  False
 aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd                                    Contributor        ServicePrincipal       False
 Ascent - Azure IT Security                                                                        Contributor        Group                  False
@@ -605,10 +608,10 @@ Resource Group: p-ltlbatchrater-rg
 DisplayName                                                    SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                        ------------------ ----------       -----------
 Dmitri Prozorov                                                dmitri.prozorov@ascentgl.com      Contributor        User                   False
-Rick Sonne                                                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                                                 Contributor        Unknown                False
 Aparna Devaguptapu                                             Aparna.Devaguptapu@ascentgl.com   Contributor        User                   False
 Aparna Devaguptapu                                             Aparna.Devaguptapu@ascentgl.com   Contributor        User                   False
-Rick Sonne                                                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                                                 Contributor        Unknown                False
 Dmitri Prozorov                                                dmitri.prozorov@ascentgl.com      Contributor        User                   False
 tg-dev-mesca-azure-services                                                                      Contributor        Group                  False
 AZURE_ROLE-SYSTEMS_ENGINEERING                                                                   Owner              Group                  False
@@ -645,7 +648,7 @@ Resource Group: p-azure-sforce-bridge-rg
 DisplayName                                                    SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                        ------------------ ----------       -----------
 Koby Campbell                                                  koby.campbell@ascentgl.com        Contributor        User                   False
-Rick Sonne                                                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                                                 Contributor        Unknown                False
 vstsrrts-Ascent Domestic-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775                                    Contributor        ServicePrincipal       False
 vstsrrts-Ascent Domestic-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775                                    Contributor        ServicePrincipal       False
 Karthik Ganesan                                                Karthik.Ganesan@Ascentgl.com      Contributor        User                   False
@@ -668,7 +671,7 @@ DisplayName                                                    SignInName       
 -----------                                                    ----------                        ------------------ ----------       -----------
 Dmitri Prozorov                                                dmitri.prozorov@ascentgl.com      Contributor        User                   False
 smc3-passthrough-service-sp                                                                      Contributor        ServicePrincipal       False
-Rick Sonne                                                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                                                 Contributor        Unknown                False
 Aparna Devaguptapu                                             Aparna.Devaguptapu@ascentgl.com   Contributor        User                   False
 vstsrrts-Ascent Domestic-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775                                    Contributor        ServicePrincipal       False
 tg-dev-mesca-azure-services                                                                      Contributor        Group                  False
@@ -799,8 +802,8 @@ Resource Group: dom-dev
 DisplayName                                                    SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                        ------------------ ----------       -----------
 Alfred Cavedon                                                 al.cavedon@ascentgl.com           Contributor        User                   False
-Rick Sonne                                                     richard.sonne@ascentgl.com        Contributor        User                   False
-Rick Sonne                                                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                                                 Contributor        Unknown                False
+                                                                                                 Contributor        Unknown                False
 Karthik Ganesan                                                Karthik.Ganesan@Ascentgl.com      Contributor        User                   False
 site-reliability-engineering                                                                     Owner              Group                  False
 aoddevproj-SharedServices-42c07c41-d4ec-4c32-93b5-0b3dcf49dd8a                                   Contributor        ServicePrincipal       False
@@ -1034,7 +1037,7 @@ Resource Group: pkp-ops
 DisplayName                                                    SignInName                                                      RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                                                      ------------------ ----------       -----------
 dat.cao                                                        dat.cao_watasolutions.com#EXT#@RRTSLOGISTICS.onmicrosoft.com    Contributor        User                   False
-Rick Sonne                                                     richard.sonne@ascentgl.com                                      Contributor        User                   False
+                                                                                                                               Contributor        Unknown                False
 247expressin@gmail.com                                         247expressin_gmail.com#EXT#@RRTSLOGISTICS.onmicrosoft.com       Owner              User                   False
 Morgan Jollymore                                               morgan.jollymore@ascentgl.com                                   Owner              User                   False
 trung.tran                                                     trung.tran_watasolutions.com#EXT#@RRTSLOGISTICS.onmicrosoft.com Owner              User                   False
@@ -1461,7 +1464,7 @@ Resource Group: tlt-app
 
 DisplayName                                                    SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                                                    ----------                        ------------------ ----------       -----------
-Rick Sonne                                                     richard.sonne@ascentgl.com        Owner              User                   False
+                                                                                                 Owner              Unknown                False
 vstsrrts-PEAK-aea4d832-1305-4376-8dfe-34813a088f63                                               Contributor        ServicePrincipal       False
 TLT-Processor                                                                                    Owner              ServicePrincipal       False
 vstsrrts-PEAK-aea4d832-1305-4376-8dfe-34813a088f63                                               Contributor        ServicePrincipal       False
@@ -1659,7 +1662,7 @@ Resource Group: ascentcmg
 
 DisplayName                                        SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                                        ----------                        ------------------ ----------       -----------
-ascent-cmg-webapp                                                                    Contributor        ServicePrincipal       False
+                                                                                     Contributor        Unknown                False
 pkp-sandbox-svc-acct                                                                 Contributor        ServicePrincipal       False
 pkp-dev-admin                                                                        Contributor        Group                  False
 John Stanley                                       john.stanley@ascentgl.com         Owner              User                   False
@@ -2087,7 +2090,7 @@ Resource Group: Ascent-Web
 
 DisplayName                    SignInName                        RoleDefinitionName ObjectType       CanDelegate
 -----------                    ----------                        ------------------ ----------       -----------
-Rick Sonne                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                 Contributor        Unknown                False
 Karthik Ganesan                Karthik.Ganesan@Ascentgl.com      Contributor        User                   False
 Joshua Colvin                  josh.colvin@ascentgl.com          Contributor        User                   False
 Ascent - Developers                                              Contributor        Group                  False
@@ -2757,7 +2760,7 @@ Pete Bamrick                   pete.bamrick@ascentgl.com         Contributor    
 Adam Woroniec                  Adam.Woroniec@Ascentgl.com        Contributor        User                   False
 Joe Gange                      joe.gange@ascentgl.com            Contributor        User                   False
 Alfred Cavedon                 al.cavedon@ascentgl.com           Contributor        User                   False
-Rick Sonne                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                 Contributor        Unknown                False
 Keith Gaske                    keith.gaske@ascentgl.com          Contributor        User                   False
 Jayshree Patel                 jayshree.patel@ascentgl.com       Contributor        User                   False
 Morgan Jollymore               morgan.jollymore@ascentgl.com     Contributor        User                   False
@@ -2783,7 +2786,7 @@ Pete Bamrick                   pete.bamrick@ascentgl.com         Contributor    
 Adam Woroniec                  Adam.Woroniec@Ascentgl.com        Contributor        User                   False
 Joe Gange                      joe.gange@ascentgl.com            Contributor        User                   False
 Alfred Cavedon                 al.cavedon@ascentgl.com           Contributor        User                   False
-Rick Sonne                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                 Contributor        Unknown                False
 Keith Gaske                    keith.gaske@ascentgl.com          Contributor        User                   False
 Jayshree Patel                 jayshree.patel@ascentgl.com       Contributor        User                   False
 Morgan Jollymore               morgan.jollymore@ascentgl.com     Contributor        User                   False
@@ -2809,7 +2812,7 @@ Pete Bamrick                   pete.bamrick@ascentgl.com         Contributor    
 Adam Woroniec                  Adam.Woroniec@Ascentgl.com        Contributor        User                   False
 Joe Gange                      joe.gange@ascentgl.com            Contributor        User                   False
 Alfred Cavedon                 al.cavedon@ascentgl.com           Contributor        User                   False
-Rick Sonne                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                 Contributor        Unknown                False
 Keith Gaske                    keith.gaske@ascentgl.com          Contributor        User                   False
 Jayshree Patel                 jayshree.patel@ascentgl.com       Contributor        User                   False
 Morgan Jollymore               morgan.jollymore@ascentgl.com     Contributor        User                   False
@@ -2836,7 +2839,7 @@ Pete Bamrick                   pete.bamrick@ascentgl.com         Contributor    
 Adam Woroniec                  Adam.Woroniec@Ascentgl.com        Contributor        User                   False
 Joe Gange                      joe.gange@ascentgl.com            Contributor        User                   False
 Alfred Cavedon                 al.cavedon@ascentgl.com           Contributor        User                   False
-Rick Sonne                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                 Contributor        Unknown                False
 Keith Gaske                    keith.gaske@ascentgl.com          Contributor        User                   False
 Jayshree Patel                 jayshree.patel@ascentgl.com       Contributor        User                   False
 Morgan Jollymore               morgan.jollymore@ascentgl.com     Contributor        User                   False
@@ -2862,7 +2865,7 @@ Pete Bamrick                   pete.bamrick@ascentgl.com         Contributor    
 Adam Woroniec                  Adam.Woroniec@Ascentgl.com        Contributor        User                   False
 Joe Gange                      joe.gange@ascentgl.com            Contributor        User                   False
 Alfred Cavedon                 al.cavedon@ascentgl.com           Contributor        User                   False
-Rick Sonne                     richard.sonne@ascentgl.com        Contributor        User                   False
+                                                                 Contributor        Unknown                False
 Keith Gaske                    keith.gaske@ascentgl.com          Contributor        User                   False
 Jayshree Patel                 jayshree.patel@ascentgl.com       Contributor        User                   False
 Morgan Jollymore               morgan.jollymore@ascentgl.com     Contributor        User                   False
@@ -4216,8 +4219,8 @@ DisplayName            SignInName                        RoleDefinitionName Obje
 Brian White            brian.white@ascentgl.com          Contributor        User                   False
 Eric Hooper            eric.hooper@ascentgl.com          Contributor        User                   False
 Adam Woroniec          Adam.Woroniec@Ascentgl.com        Contributor        User                   False
-Rick Sonne             richard.sonne@ascentgl.com        Contributor        User                   False
-Rick Sonne             richard.sonne@ascentgl.com        Contributor        User                   False
+                                                         Contributor        Unknown                False
+                                                         Contributor        Unknown                False
 AscentVirtualAssistant                                   Contributor        ServicePrincipal       False
 AscentVirtualAssistant                                   Contributor        ServicePrincipal       False
 Andy Melichar          andy.melichar@ascentgl.com        Owner              User                   False
@@ -4319,140 +4322,194 @@ Andy Melichar    andy.melichar@ascentgl.com        Owner              User      
 
 
 List of identities included in the report:
-(ArcBox) Tag resources
-247expressin@gmail.com
-a-total-test-sp
-AAG-APTDEVCF11
-Aaron Garland
-Abdifatah Harun
-Adam Woroniec
-Alfred Cavedon
-Amer Ahmed
-Andy Melichar
-Anthony Urwin
-aoddevproj-2022 Hackathon-e48da26e-6a86-4902-b383-0abbf5e50ce3
-aoddevproj-ActiveSafety-29273af7-0b31-4f82-8750-8d34fc31fbb1
-aoddevproj-Ascent-On-Demand-29273af7-0b31-4f82-8750-8d34fc31fbb1
-aoddevproj-Ascent-On-Demand-aea4d832-1305-4376-8dfe-34813a088f63
-aoddevproj-Ascent-On-Demand-df98e59e-eb76-471c-942b-f7c705deeecb
-aoddevproj-Ascent-On-Demand-e91b6d6a-70db-4d28-a270-df1027772394
-aoddevproj-Peak-On-Demand-71d47c29-7e5d-4ed5-8374-8be22795bb72
-aoddevproj-Peak-On-Demand-e48da26e-6a86-4902-b383-0abbf5e50ce3
-aoddevproj-PFM-29273af7-0b31-4f82-8750-8d34fc31fbb1
-aoddevproj-PFM-aea4d832-1305-4376-8dfe-34813a088f63
-aoddevproj-PFM-e91b6d6a-70db-4d28-a270-df1027772394
-aoddevproj-SharedServices-29273af7-0b31-4f82-8750-8d34fc31fbb1
-aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd
-aoddevproj-SharedServices-42c07c41-d4ec-4c32-93b5-0b3dcf49dd8a
-aoddevproj-SharedServices-aea4d832-1305-4376-8dfe-34813a088f63
-aoddevproj-SharedServices-be827925-8481-499e-a2f5-5a054a29d940
-aoddevproj-SharedServices-e91b6d6a-70db-4d28-a270-df1027772394
-aoddevproj-SharedServices-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775
-aoddevproj-SRE-29273af7-0b31-4f82-8750-8d34fc31fbb1
-aoddevproj-SRE-42969682-e78b-4708-a675-e23ddc5e08dd
-Aparna Devaguptapu
-Ascent - Azure IT Security
-Ascent - Developers
-Ascent - International Development
-ascent - pod - developers
-ascent-cmg-webapp
-AscentVirtualAssistant
-asg-rubrikcompute-01
-azscsp-1683205127602
-AZURE_ROLE-SYSTEMS_ENGINEERING
-Azure-Automations-Identity
-azure-cli-2019-10-01-20-45-08
-azure-cli-2021-05-11-16-44-38
-azure-cli-2022-07-01-15-31-18
-AzureAutomationPS
-Brian Schmieder
-Brian White
-Bryan Eliason
-Bryan Pershall
-Chris Lopez
-Chris Prescott
-d-pod-aks
-dat.cao
-David Rumpf
-David Shelton
-Desmond Houston
-Dmitri Prozorov
-Eric Hooper
-ingressapplicationgateway-d-pod-aks
-ingressapplicationgateway-p-pod-aks
-Jayshree Patel
-Jim McElwee
-Joe Gange
-John Stanley
-Joseph Janesku
-Joshua Colvin
-Karthik Ganesan
-Keith Gaske
-Koby Campbell
-Krishna S Vemulapalli
-Kristi Becker
-Microsoft.AzureFrontDoor-Cdn
-Morgan Jollymore
-mySP
-ops-dom-prod-sp
-p-pod-aks
-Paul St Germain
-Paul Stein
-Pete Bamrick
-PILOTPAY-SP
-pkp-aks
-pkp-dev
-pkp-dev-admin
-pkp-prd-sp
-pkp-prod
-pkp-prod-admin
-pkp-qa
-pkp-sandbox
-pkp-sandbox-svc-acct
-POD-SP
-POD-SP-PROD
-PODProductionDeployAutomation
-PowerBI
-Quellie Moorhead
-Richard Bonnett
-Rick Sonne
-Ron Gabriel
-RRTS_Developers_Prod
-RRTS-Phish-Runbook_eWuk4oylzQNosNMAOP29b6P48QiFrdgPN7zOJPlH1/g=
-SCIM
-Scott Kehres
-Scully
-Sectigo SCM Key Vault
-Shannon Collier
-Shirdel Welsh
-Site Reliability Engineering
-site-reliability-engineering
-smc3-passthrough-service-sp
-sre-automation
-Stephanie Nikolas
-Stephen Wenzel
-Steven Buckner
-Steven Tarzon
-TG_Merilytics
-tg-dev-mesca-azure-services
-TLT-Processor
-Tomasz Jamroz
-trung.tran
-vstsrrts-Ascent Domestic-29273af7-0b31-4f82-8750-8d34fc31fbb1
-vstsrrts-Ascent Domestic-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775
-vstsrrts-Ascent International-29273af7-0b31-4f82-8750-8d34fc31fbb1
-vstsrrts-Ascent International-be827925-8481-499e-a2f5-5a054a29d940
-vstsrrts-Ascent International-e91b6d6a-70db-4d28-a270-df1027772394
-vstsrrts-Ascent-aea4d832-1305-4376-8dfe-34813a088f63
-vstsrrts-AssetLight-73da7ef7-fa21-4c5b-9d45-fe0d72d61bdc
-vstsrrts-AssetLight-ffc6ee43-7e7c-4905-b363-6ce28fa13897
-vstsrrts-PEAK-aea4d832-1305-4376-8dfe-34813a088f63
-vstsrrts-PEAK-d6676574-f62e-4f3b-a933-fad79fe2dd6d
-vstsrrts-SharedServices-29273af7-0b31-4f82-8750-8d34fc31fbb1
-vstsrrts-SharedServices-aea4d832-1305-4376-8dfe-34813a088f63
-Walid Aouragh
-Zia Ahmed
+Active Users in Azure Active Directory
+
+DisplayName               AccountEnabled UserPrincipalName                                                    LastPasswordChangeDateTime
+-----------               -------------- -----------------                                                    --------------------------
+247expressin@gmail.com              True 247expressin_gmail.com#EXT#@RRTSLOGISTICS.onmicrosoft.com            12/18/2017 3:01:15 PM
+Aakaash Neerati                     True aakaash.neerati@rrts.com                                             4/10/2023 7:10:39 AM
+Aaron Garland                       True aaron.garland@ascentgl.com                                           6/8/2023 1:39:14 AM
+Abdifatah Harun                     True abdi.harun@ascentlogistics.com                                       5/15/2023 5:52:43 PM
+Abhilash CR                         True abhilash.cr_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com        5/19/2022 1:25:36 PM
+Adam Woroniec                       True Adam.Woroniec@Ascentgl.com                                           5/2/2023 1:49:48 PM
+Alfred Cavedon                      True al.cavedon@ascentgl.com                                              4/10/2023 12:30:17 PM
+Alekhya Busam                       True alekhya.busam@rrts.com                                               5/28/2023 7:13:09 AM
+Aleksandr Levytskyi                 True aleksandr.levytskyi_innovecs.com#EXT#@RRTSLOGISTICS.onmicrosoft.com  7/5/2022 12:57:08 PM
+Allie McClure                       True amcclure@ascentlogistics.com                                         6/1/2023 12:26:01 PM
+Amer Ahmed                          True amer.ahmed@ascentgl.com                                              3/7/2023 11:23:23 PM
+Amit Sharma                         True amit.sharma@ascentlogistics.com                                      5/31/2023 2:39:14 PM
+Anand Kumar Gupta                   True Anand.kumar_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com        5/16/2022 8:01:52 PM
+Andrii Yazik                        True andrii.yazik_innovecs.com#EXT#@RRTSLOGISTICS.onmicrosoft.com         8/11/2022 12:21:21 PM
+Andy Melichar                       True andy.melichar@ascentgl.com                                           5/16/2023 12:17:46 PM
+Annadaneshwar Kodiyalmath           True annadaneshwar.k_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com    5/16/2022 8:01:49 PM
+Anthony Urwin                       True anthony.urwin@rrts.com                                               4/26/2023 3:05:10 PM
+Aparna Devaguptapu                  True Aparna.Devaguptapu@ascentgl.com                                      3/14/2023 12:14:50 PM
+Bryan Eliason                       True beliason@rrts.com                                                    5/24/2023 5:32:05 PM
+Ben Shepherd                        True ben.shepherd@ascentgl.com                                            5/26/2023 8:01:52 PM
+Brian Schmieder                     True brian.schmieder@ascentgl.com                                         5/30/2023 1:08:39 PM
+Brian White                         True brian.white@ascentgl.com                                             5/25/2023 10:46:12 AM
+Bryan Pershall                      True bryan.pershall@ascentlogistics.com                                   5/17/2023 7:24:33 PM
+Chris Lopez                         True chris.lopez@ascentgl.com                                             4/6/2023 12:11:36 PM
+Chris Prescott                      True chris.prescott@ascentgl.com                                          6/12/2023 4:41:13 PM
+Connor McAllister                   True cmcallister@rrts.com                                                 5/30/2023 4:01:39 PM
+Craig Williams                      True craig.williams@ascentgl.com                                          6/1/2023 12:09:43 PM
+Curtis                              True curtis.bollinger_27global.com#EXT#@RRTSLOGISTICS.onmicrosoft.com     10/15/2019 1:32:45 PM
+dat.cao                             True dat.cao_watasolutions.com#EXT#@RRTSLOGISTICS.onmicrosoft.com         10/30/2019 4:26:12 PM
+David Shelton                       True david.shelton@ascentgl.com                                           6/6/2023 10:18:56 PM
+Desmond Houston                     True Desmond.Houston@Ascentgl.com                                         4/16/2023 5:58:07 PM
+Dhaval Tamhane                      True dhaval.tamhane_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com     7/1/2022 2:48:05 PM
+Dilmurod Yakubov                    True dilmurod.yakubov@ascentgl.com                                        5/10/2023 2:27:40 PM
+Dmitri Prozorov                     True dmitri.prozorov@ascentgl.com                                         5/8/2023 12:47:14 PM
+Dan Paluszynski                     True dpaluszynski@rrts.com                                                4/21/2023 9:38:14 PM
+David Rumpf                         True drumpf@rrts.com                                                      4/3/2023 1:38:31 PM
+Ed Vega                             True ed.vega@ascentlogistics.com                                          6/7/2023 5:39:52 PM
+Eric Hooper                         True eric.hooper@ascentgl.com                                             4/15/2023 6:17:29 PM
+Ganesh Pathiavada                   True ganesh.pathiavada@rrts.com                                           5/30/2023 6:53:54 AM
+Harsh Verma                         True harsh.verma@rrts.com                                                 3/23/2023 5:48:51 AM
+Harshil Nagar                       True harshil.nagar@rrts.com                                               3/22/2023 3:46:28 PM
+Ivan Sydorchuk                      True ivan.sydorchuk_innovecs.com#EXT#@RRTSLOGISTICS.onmicrosoft.com       8/9/2022 8:15:11 PM
+Jim McElwee                         True James.McElwee@ascentgl.com                                           3/17/2023 1:25:17 AM
+Jayabala Chava                      True jaya.chava@ascentgl.com                                              3/24/2023 11:42:08 PM
+Jayasurya Duggirala                 True jayasurya.duggirala@rrts.com                                         4/7/2023 10:28:24 AM
+Jayshree Patel                      True jayshree.patel@ascentgl.com                                          5/17/2023 2:07:55 PM
+Jeff Edgerton                       True Jeff.Edgerton@ascentgl.com                                           4/18/2023 9:52:15 PM
+Jennifer Howe                       True jenn.howe@ascentgl.com                                               9/29/2021 3:24:29 PM
+Joe Gange                           True joe.gange@ascentgl.com                                               4/24/2023 5:52:20 PM
+Joseph Janesku                      True joe.janesku@ascentgl.com                                             5/15/2023 3:35:28 PM
+John Stanley                        True john.stanley@ascentgl.com                                            5/25/2023 12:05:06 PM
+Jonathan Dennis                     True jonathan.dennis@ascentgl.com                                         5/9/2023 9:30:45 PM
+Joshua Colvin                       True josh.colvin@ascentgl.com                                             3/21/2022 7:10:38 PM
+Kapil Parwani                       True kapil.parwani_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com      2/2/2023 2:27:54 PM
+Karthik Ganesan                     True Karthik.Ganesan@Ascentgl.com                                         4/26/2023 1:27:22 PM
+Keith Gaske                         True keith.gaske@ascentgl.com                                             4/17/2023 9:18:16 PM
+Kirill Krasnobayev                  True kirill.krasnobayev_innovecs.com#EXT#@RRTSLOGISTICS.onmicrosoft.com   3/7/2023 4:28:44 PM
+Koby Campbell                       True koby.campbell@ascentgl.com                                           10/26/2021 2:02:44 PM
+Krishna S Vemulapalli               True Krishna.Vemulapalli@ascentgl.com                                     6/5/2023 1:03:05 PM
+Kristi Becker                       True kristi.becker@ascentgl.com                                           3/13/2023 12:15:19 PM
+Lokesh Vattikonda                   True lokesh.vattikonda@ascentgl.com                                       6/7/2023 5:02:16 PM
+Manjula Devi                        True manjula.devi_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com       3/28/2023 2:52:17 PM
+Martin C                            True martin.c@ascentlogistics.com                                         6/15/2023 1:07:51 PM
+Mayank Bambal                       True mayank.bambal@rrts.com                                               6/13/2023 5:48:12 AM
+Michael Vogt                        True michael.vogt@ascentgl.com                                            3/10/2023 4:31:41 PM
+Morgan Jollymore                    True morgan.jollymore@ascentgl.com                                        5/9/2023 5:53:15 PM
+Musa Badur                          True musa.badur@ascentgl.com                                              4/17/2023 4:05:28 PM
+Neeraj Kumar                        True neeraj.kumar_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com       5/16/2022 8:04:36 PM
+Oleh Matvieiev                      True oleh.matvieiev_innovecs.com#EXT#@RRTSLOGISTICS.onmicrosoft.com       7/18/2022 12:01:57 PM
+Omkar Sitaram Dixit                 True omkarsitaram.dixit_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com 3/28/2023 2:53:14 PM
+Paul St Germain                     True paul.stgermain@ascentgl.com                                          5/8/2023 9:23:32 PM
+Pete Bamrick                        True pete.bamrick@ascentgl.com                                            4/27/2023 12:06:36 PM
+Pooja Aggarwal                      True pooja.aggarwal_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com     2/6/2023 2:24:54 PM
+PowerBI                             True PowerBI@rrts.com                                                     10/2/2019 3:47:25 PM
+Paul Stein                          True pstein@rrts.com                                                      4/21/2023 12:39:41 PM
+Quellie Moorhead                    True quellie.moorhead@rrts.com                                            5/30/2023 2:44:55 PM
+Rajesh Edara                        True rajesh.edara@rrts.com                                                6/8/2023 12:41:25 PM
+Richard Bonnett                     True richard.bonnett@ascentgl.com                                         5/8/2023 7:15:08 PM
+Ron Gabriel                         True ron.gabriel@ascentlogistics.com                                      4/11/2023 2:05:40 PM
+Roul Tapper                         True roul.tapper@ascentlogistics.com                                      5/15/2023 1:07:50 PM
+Sarika Jadhav                       True sarika.jadhav_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com      1/10/2023 8:28:23 PM
+Scott Kehres                        True scott.kehres@ascentgl.com                                            1/24/2022 6:11:23 PM
+Sergii Sichkar                      True sergii.sichkar_innovecs.com#EXT#@RRTSLOGISTICS.onmicrosoft.com       7/18/2022 12:02:02 PM
+Shirdel Welsh                       True Shirdel.Welsh@ascentgl.com                                           6/5/2023 3:40:53 PM
+Sheethal Lloyd                      True slloyd@rrts.com                                                      5/19/2023 7:58:33 PM
+Sreeharsha Lakkireddy               True sreeharsha.lakkireddy@rrts.com                                       3/28/2023 10:39:03 AM
+Stephanie Nikolas                   True steph.nikolas@ascentlogistics.com                                    8/31/2022 5:01:20 PM
+Stephen Wenzel                      True Stephen.Wenzel@ascentgl.com                                          4/10/2023 1:12:31 PM
+Steven Tarzon                       True steve.tarzon@ascentgl.com                                            4/13/2023 4:42:22 PM
+Scully                              True thomas.scully_27global.com#EXT#@RRTSLOGISTICS.onmicrosoft.com        10/15/2019 1:32:45 PM
+Tomasz Jamroz                       True tomasz.jamroz@ascentgl.com                                           6/1/2023 1:53:08 PM
+trung.tran                          True trung.tran_watasolutions.com#EXT#@RRTSLOGISTICS.onmicrosoft.com      5/23/2019 5:55:25 PM
+Tyler Daugherty                     True tyler.daugherty@ascentlogistics.com                                  6/12/2022 10:01:39 PM
+Vishal Chava                        True vchava@ascentlogistics.com                                           6/1/2023 12:23:14 PM
+Vikash Agarwal                      True vikash.agarwal@rrts.com                                              5/29/2023 5:15:22 AM
+Vinod Kumar                         True vinod.kumar_dreamorbit.com#EXT#@RRTSLOGISTICS.onmicrosoft.com        2/22/2023 8:22:11 PM
+Walid Aouragh                       True walid.aouragh@ascentgl.com                                           5/1/2023 12:45:15 PM
+Zia Ahmed                           True zia.ahmed@ascentgl.com                                               6/14/2023 5:14:06 PM
+
+
+Disabled Users in Azure Active Directory
+
+DisplayName    AccountEnabled UserPrincipalName                 LastPasswordChangeDateTime
+-----------    -------------- -----------------                 --------------------------
+Steven Buckner          False steve.buckner@ascentlogistics.com 2/13/2023 3:01:21 PM
+
+
+Active Service Principals in Azure Active Directory
+
+DisplayName                                                        AccountEnabled AppId                                UserPrincipalName                    CreatedDate
+-----------                                                        -------------- -----                                -----------------                    -----------
+POD-SP-PROD                                                                  True 017a3e63-f4e2-47f2-a693-c42249025df1 017a3e63-f4e2-47f2-a693-c42249025df1 2022-04-01T14:39:30Z
+aoddevproj-SharedServices-e91b6d6a-70db-4d28-a270-df1027772394               True 03915c36-b6bb-449b-9285-e8660d6f4c78 03915c36-b6bb-449b-9285-e8660d6f4c78 2020-10-07T17:51:09Z
+aoddevproj-SharedServices-be827925-8481-499e-a2f5-5a054a29d940               True 0464eae0-3ad9-4cbb-9629-842def4e1dc1 0464eae0-3ad9-4cbb-9629-842def4e1dc1 2020-11-03T16:13:58Z
+AzureAutomationPS                                                            True 0702023c-176d-46e8-81bc-5e79e7de57cd 0702023c-176d-46e8-81bc-5e79e7de57cd 2021-11-03T15:12:14Z
+aoddevproj-Ascent-On-Demand-29273af7-0b31-4f82-8750-8d34fc31fbb1             True 07c79188-1a97-44f1-b9c1-c0136795a193 07c79188-1a97-44f1-b9c1-c0136795a193 2020-12-11T14:10:35Z
+aoddevproj-2022 Hackathon-e48da26e-6a86-4902-b383-0abbf5e50ce3               True 0938356d-427c-451e-bf77-445b9a5cbf43 0938356d-427c-451e-bf77-445b9a5cbf43 2022-06-10T14:36:42Z
+PODProductionDeployAutomation                                                True 09abc41f-8486-4965-ac7b-65b181a6ea71 09abc41f-8486-4965-ac7b-65b181a6ea71 2021-11-04T18:27:14Z
+aoddevproj-SharedServices-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775               True 0a0cb4fb-16d9-405c-a341-c9af8ed2e87a 0a0cb4fb-16d9-405c-a341-c9af8ed2e87a 2021-02-16T19:55:50Z
+vstsrrts-Ascent International-29273af7-0b31-4f82-8750-8d34fc31fbb1           True 0a81e111-e073-4370-9666-877a52f1a777 0a81e111-e073-4370-9666-877a52f1a777 2020-10-21T13:08:14Z
+vstsrrts-Ascent-aea4d832-1305-4376-8dfe-34813a088f63                         True 0b73b0d4-4dca-42d3-9d6c-ff35b863c16c 0b73b0d4-4dca-42d3-9d6c-ff35b863c16c 2020-07-13T17:14:22Z
+smc3-passthrough-service-sp                                                  True 0e4d5a1a-9143-49b5-a3c2-8a37d9f0a223 0e4d5a1a-9143-49b5-a3c2-8a37d9f0a223 2023-05-08T18:56:07Z
+aoddevproj-SharedServices-42969682-e78b-4708-a675-e23ddc5e08dd               True 17364d77-a785-4343-8644-f1ca3efd4b65 17364d77-a785-4343-8644-f1ca3efd4b65 2020-10-09T16:48:33Z
+Microsoft.AzureFrontDoor-Cdn                                                 True 205478c0-bd83-4e1b-a9d6-db63a3e1e1c8 205478c0-bd83-4e1b-a9d6-db63a3e1e1c8 2021-02-11T17:26:27Z
+vstsrrts-SharedServices-aea4d832-1305-4376-8dfe-34813a088f63                 True 2b47f219-65ab-4ed0-8a86-335578a5f5ef 2b47f219-65ab-4ed0-8a86-335578a5f5ef 2020-06-04T01:41:52Z
+ingressapplicationgateway-p-pod-aks                                          True 336b4ae0-ab6e-4a65-b3d4-679cd48d5758 336b4ae0-ab6e-4a65-b3d4-679cd48d5758 2022-04-01T16:02:59Z
+aoddevproj-SharedServices-aea4d832-1305-4376-8dfe-34813a088f63               True 34e61f28-3197-4609-bc7b-1385fc6fab57 34e61f28-3197-4609-bc7b-1385fc6fab57 2020-08-24T15:51:29Z
+aoddevproj-SharedServices-29273af7-0b31-4f82-8750-8d34fc31fbb1               True 3c5f7b65-f85d-48d3-ba21-6b57447e79f9 3c5f7b65-f85d-48d3-ba21-6b57447e79f9 2020-08-24T15:48:55Z
+ingressapplicationgateway-d-pod-aks                                          True 3c8124b3-2883-42d1-9cf7-3367468a5478 3c8124b3-2883-42d1-9cf7-3367468a5478 2021-10-29T16:09:34Z
+azscsp-1683205127602                                                         True 418d173b-1384-419b-a7cd-2210109af5fd 418d173b-1384-419b-a7cd-2210109af5fd 2023-05-04T12:58:54Z
+p-pod-aks                                                                    True 422c82e2-e363-4adf-956b-42ea4b0b53ac 422c82e2-e363-4adf-956b-42ea4b0b53ac 2022-04-01T16:02:41Z
+RRTS-Phish-Runbook_eWuk4oylzQNosNMAOP29b6P48QiFrdgPN7zOJPlH1/g=              True 43c3dc94-1a59-4e16-b2ee-c6a03f43195f 43c3dc94-1a59-4e16-b2ee-c6a03f43195f 2018-08-02T16:25:05Z
+pkp-dev                                                                      True 45d804ac-93b0-448a-9256-5248f49e06eb 45d804ac-93b0-448a-9256-5248f49e06eb 2019-09-03T17:45:14Z
+aoddevproj-SRE-42969682-e78b-4708-a675-e23ddc5e08dd                          True 460b8338-a7a0-4ba3-854a-8b8d48030231 460b8338-a7a0-4ba3-854a-8b8d48030231 2021-03-02T15:56:59Z
+sre-automation                                                               True 47d9b5cd-112c-414f-9783-7b186c8d11d8 47d9b5cd-112c-414f-9783-7b186c8d11d8 2022-04-29T23:05:55Z
+vstsrrts-Ascent International-be827925-8481-499e-a2f5-5a054a29d940           True 4d278714-83d8-49ae-a524-2ac94a3c1ff7 4d278714-83d8-49ae-a524-2ac94a3c1ff7 2021-05-04T18:54:30Z
+aoddevproj-Peak-On-Demand-71d47c29-7e5d-4ed5-8374-8be22795bb72               True 54529f08-f4e6-4eac-97ad-bf5eff721361 54529f08-f4e6-4eac-97ad-bf5eff721361 2022-03-07T18:14:14Z
+vstsrrts-Ascent Domestic-29273af7-0b31-4f82-8750-8d34fc31fbb1                True 5517e975-1344-4bd9-9484-f5a92f48cd20 5517e975-1344-4bd9-9484-f5a92f48cd20 2021-02-18T19:43:28Z
+azure-cli-2021-05-11-16-44-38                                                True 56dc908e-0f8f-437b-9b17-32720bd5fa4f 56dc908e-0f8f-437b-9b17-32720bd5fa4f 2021-05-11T16:44:41Z
+vstsrrts-Ascent International-e91b6d6a-70db-4d28-a270-df1027772394           True 6248ddd6-3f1d-4e0c-92c6-e04c0965ca8f 6248ddd6-3f1d-4e0c-92c6-e04c0965ca8f 2022-10-24T18:59:35Z
+vstsrrts-PEAK-d6676574-f62e-4f3b-a933-fad79fe2dd6d                           True 67b80b96-3d42-4dc5-bd31-a02f297bb54d 67b80b96-3d42-4dc5-bd31-a02f297bb54d 2019-11-13T19:52:01Z
+CMG Azure Web App                                                            True 6af63f89-d26f-476e-b6fb-58f3e9b4d830 6af63f89-d26f-476e-b6fb-58f3e9b4d830 2023-06-15T14:38:03Z
+aoddevproj-ActiveSafety-29273af7-0b31-4f82-8750-8d34fc31fbb1                 True 6c762c7c-4a81-402d-9ce9-d1d2632b382d 6c762c7c-4a81-402d-9ce9-d1d2632b382d 2020-07-30T13:40:48Z
+POD-SP                                                                       True 71954695-5aff-4d6a-af93-c3090619cc83 71954695-5aff-4d6a-af93-c3090619cc83 2021-10-15T12:39:08Z
+aoddevproj-SharedServices-42c07c41-d4ec-4c32-93b5-0b3dcf49dd8a               True 730faf68-6df5-4cf8-8d5d-a7e836e9565e 730faf68-6df5-4cf8-8d5d-a7e836e9565e 2021-02-15T17:01:09Z
+TLT-Processor                                                                True 74f9fea5-2d7e-443e-a49a-470d7b8ac0c9 74f9fea5-2d7e-443e-a49a-470d7b8ac0c9 2019-09-11T17:02:10Z
+AscentVirtualAssistant                                                       True 7924c594-92cd-40eb-9878-86397922ec47 7924c594-92cd-40eb-9878-86397922ec47 2022-06-09T16:14:48Z
+aoddevproj-SRE-29273af7-0b31-4f82-8750-8d34fc31fbb1                          True 7e4db0ee-b5c6-4a2e-ad68-201a35555a5d 7e4db0ee-b5c6-4a2e-ad68-201a35555a5d 2020-06-02T18:12:31Z
+pkp-qa                                                                       True 806809ef-3b87-4e2c-902f-3e2e4653e60a 806809ef-3b87-4e2c-902f-3e2e4653e60a 2019-09-10T16:13:14Z
+Azure-Automations-Identity                                                   True 80ffd1df-c1a7-40c5-8f50-02bec31a3ea2 80ffd1df-c1a7-40c5-8f50-02bec31a3ea2 2023-02-09T20:30:41Z
+aoddevproj-Ascent-On-Demand-e91b6d6a-70db-4d28-a270-df1027772394             True 81cfc55f-69cf-406b-b290-43bb01fce7a3 81cfc55f-69cf-406b-b290-43bb01fce7a3 2020-12-11T14:08:46Z
+ops-dom-prod-sp                                                              True 8262b41f-0c07-4998-8960-81fe0aa727ec 8262b41f-0c07-4998-8960-81fe0aa727ec 2020-10-07T17:04:55Z
+aoddevproj-PFM-aea4d832-1305-4376-8dfe-34813a088f63                          True 8373108b-a8e4-497b-9554-c620556fb7f2 8373108b-a8e4-497b-9554-c620556fb7f2 2020-06-12T18:28:25Z
+AAG-APTDEVCF11                                                               True 86c65a95-8d25-47ac-9060-5870358c5f4a 86c65a95-8d25-47ac-9060-5870358c5f4a 2022-03-17T20:53:25Z
+aoddevproj-PFM-29273af7-0b31-4f82-8750-8d34fc31fbb1                          True 8b682855-d3fa-4b6d-922f-32fee78a37d2 8b682855-d3fa-4b6d-922f-32fee78a37d2 2020-07-21T19:42:35Z
+a-total-test-sp                                                              True 8b9c470c-28c9-4f3b-b1ad-07f9487c9dfb 8b9c470c-28c9-4f3b-b1ad-07f9487c9dfb 2019-11-07T17:16:13Z
+vstsrrts-AssetLight-73da7ef7-fa21-4c5b-9d45-fe0d72d61bdc                     True 9046acbb-4f44-4ec2-ad64-20defe482129 9046acbb-4f44-4ec2-ad64-20defe482129 2020-08-06T18:07:19Z
+vstsrrts-AssetLight-ffc6ee43-7e7c-4905-b363-6ce28fa13897                     True 97003606-2617-48ff-a64d-f711cbb66dbb 97003606-2617-48ff-a64d-f711cbb66dbb 2020-08-06T18:05:53Z
+pkp-aks                                                                      True 97863bbc-ceb4-48de-b0bc-c808c8064782 97863bbc-ceb4-48de-b0bc-c808c8064782 2019-06-18T18:08:25Z
+azure-cli-2022-07-01-15-31-18                                                True 99946289-6807-4f4a-abbe-931b1b3c574a 99946289-6807-4f4a-abbe-931b1b3c574a 2022-07-01T15:31:20Z
+asg-rubrikcompute-01                                                         True acc889d7-b9d6-42d6-83e8-38706e7b4955 acc889d7-b9d6-42d6-83e8-38706e7b4955 2020-04-01T18:04:14Z
+SCIM                                                                         True b31fc290-b10a-4ef3-afee-4eafbe3daad6 b31fc290-b10a-4ef3-afee-4eafbe3daad6 2021-09-01T19:54:10Z
+aoddevproj-Ascent-On-Demand-df98e59e-eb76-471c-942b-f7c705deeecb             True b6373f4c-8fe4-4136-af35-eb1f2c8b5790 b6373f4c-8fe4-4136-af35-eb1f2c8b5790 2022-09-12T14:10:56Z
+pkp-prd-sp                                                                   True be96f767-dc41-4a08-881e-ef0fe113edd7 be96f767-dc41-4a08-881e-ef0fe113edd7 2019-10-02T12:37:18Z
+(ArcBox) Tag resources                                                       True c948be63-ce60-4cfc-a10a-b6b97c641fd5 c948be63-ce60-4cfc-a10a-b6b97c641fd5 2023-05-04T13:01:03Z
+vstsrrts-PEAK-aea4d832-1305-4376-8dfe-34813a088f63                           True c9a5be50-086c-43a8-a14f-3c836a4ee061 c9a5be50-086c-43a8-a14f-3c836a4ee061 2019-09-24T16:41:28Z
+d-pod-aks                                                                    True cd34216d-3854-4e56-9c2c-9efcf7abf1ef cd34216d-3854-4e56-9c2c-9efcf7abf1ef 2021-10-29T16:09:22Z
+vstsrrts-Ascent Domestic-ed1ed473-46ce-4b5f-8d78-d0abfe6ed775                True dd367327-e8ee-4cf0-bf6c-38b7fea546dd dd367327-e8ee-4cf0-bf6c-38b7fea546dd 2023-04-18T02:25:18Z
+aoddevproj-Peak-On-Demand-e48da26e-6a86-4902-b383-0abbf5e50ce3               True de02aaa9-8e08-411e-b3d3-d409126b05e9 de02aaa9-8e08-411e-b3d3-d409126b05e9 2021-10-07T14:02:41Z
+Sectigo SCM Key Vault                                                        True e3ea5303-080e-4f5b-afb7-c203a9d29489 e3ea5303-080e-4f5b-afb7-c203a9d29489 2020-07-27T13:51:34Z
+aoddevproj-PFM-e91b6d6a-70db-4d28-a270-df1027772394                          True e711654b-2114-4d75-99dc-b400186503f6 e711654b-2114-4d75-99dc-b400186503f6 2020-10-07T17:24:57Z
+azure-cli-2019-10-01-20-45-08                                                True e7b6f9c6-d1de-483b-b9ef-f484a269c8d8 e7b6f9c6-d1de-483b-b9ef-f484a269c8d8 2019-10-01T20:46:00Z
+mySP                                                                         True e7f939ce-38c7-48c3-9e86-a806863ec2d1 e7f939ce-38c7-48c3-9e86-a806863ec2d1 2020-06-22T18:25:21Z
+pkp-sandbox                                                                  True ebd4e2b3-9d6b-4633-916a-2266eda3138d ebd4e2b3-9d6b-4633-916a-2266eda3138d 2019-11-19T20:20:58Z
+vstsrrts-SharedServices-29273af7-0b31-4f82-8750-8d34fc31fbb1                 True f10a09ca-5a5b-447a-9fce-3810596e7c79 f10a09ca-5a5b-447a-9fce-3810596e7c79 2020-07-21T20:18:23Z
+PILOTPAY-SP                                                                  True f1e4b97a-0c53-48b3-b9d3-50d0f34f3b4d f1e4b97a-0c53-48b3-b9d3-50d0f34f3b4d 2022-09-07T19:05:47Z
+pkp-prod                                                                     True f4084b4f-adcc-4e53-9213-70e0a27e9335 f4084b4f-adcc-4e53-9213-70e0a27e9335 2019-10-24T18:40:16Z
+aoddevproj-Ascent-On-Demand-aea4d832-1305-4376-8dfe-34813a088f63             True fd13763c-645e-4b69-b98f-9c1323b2d413 fd13763c-645e-4b69-b98f-9c1323b2d413 2021-01-12T13:23:14Z
+pkp-sandbox-svc-acct                                                         True ffee6c27-8bd5-4ab0-8a02-3ae396fe4f4d ffee6c27-8bd5-4ab0-8a02-3ae396fe4f4d 2019-12-11T18:26:08Z
+
+
+Disabled Service Principals in Azure Active Directory
+
 **********************
 PowerShell transcript end
-End time: 20230613145837
+End time: 20230615141308
 **********************
