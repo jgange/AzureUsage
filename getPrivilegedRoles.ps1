@@ -57,6 +57,27 @@ function displayUserList($identities)
    $identities | Sort-Object -Property DisplayName -unique | Format-Table -AutoSize
 }
 
+function checkIdentityType($identity)
+{
+   switch ($identity.ObjectType)
+   {
+      "User" { checkUserStatus $identity }
+      "ServicePrincipal" { checkServiceAccountStatus $identity }
+      "Group" { getGroupMembers $identity }
+      default {$identity.ObjectType}
+   }
+}
+
+function checkUserStatus($user)
+{
+   Get-AzADUser -ObjectId $user.SignInName | Select-Object -Property DisplayName, AccountEnabled, ApproximateLastSignInDateTime
+}
+
+function checkServiceAccountStatus($account)
+{
+   Get-AzADServicePrincipal -DisplayName $account.DisplayName | Select-Object -Property DisplayName,AccountEnabled,AdditionalProperties
+}
+
 function ShowExpiredUsers()
 {
       # Get-AzureADUser -ObjectId "testUpn@tenant.com"
@@ -67,9 +88,14 @@ function ShowActiveUsers()
 
 }
 
-function getGroupMembers()
+function getGroupMembers($identity)
 {
+   Get-AzADGroup -DisplayName $identity.DisplayName
+}
 
+function checkServicePrincipal()
+{
+   
 }
 
 #### Main Program ####
@@ -93,3 +119,5 @@ Write-Output "List of identities included in the report:`n"
 displayUserList $identities
 
 # Stop-Transcript
+
+$identities | ForEach-Object { checkIdentityType $_ }
