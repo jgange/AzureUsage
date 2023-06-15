@@ -26,6 +26,7 @@ Account                SubscriptionName       TenantId                          
 -------                ----------------       --------                             -----------
 joe.gange@ascentgl.com International Dev/Test 7797ca53-b03e-4a03-baf0-13628aa79c92 AzureCloud
 Transcript started, output file is ./AzureRoles.txt
+
 Subscription Name: International Dev/Test
 Resource Group: cloud-shell-storage-southcentralus
 -------------------------------------

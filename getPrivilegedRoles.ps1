@@ -141,6 +141,8 @@ catch {
 
 Start-Transcript -Path "./AzureRoles.txt"
 
+Write-Output "`n"
+
 Get-AzSubscription | Select-Object -First 50 | ForEach-Object { DisplayReport $_ }
 
 Write-Output "List of identities included in the report:`n"
